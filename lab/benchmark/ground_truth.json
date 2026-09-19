@@ -1,0 +1,159 @@
+{
+  "schema_version": "1.0.0",
+  "benchmark_name": "RETRACE Commerce Lab Benchmark",
+  "application": {
+    "name": "RETRACE Commerce Lab",
+    "domain": "E-Commerce",
+    "version_a": {
+      "name": "Version A (Baseline)",
+      "tag": "v1.0.0",
+      "default_port": 3001,
+      "base_url": "http://localhost:3001"
+    },
+    "version_b": {
+      "name": "Version B (Candidate)",
+      "tag": "v2.0.0",
+      "default_port": 3002,
+      "base_url": "http://localhost:3002"
+    }
+  },
+  "defects": [
+    {
+      "defect_id": "DEF-001",
+      "title": "Coupon Validation Payload Schema Mismatch",
+      "category": "api_contract",
+      "severity": "high",
+      "affected_flow": "Checkout -> Apply Coupon",
+      "introducing_commit": "8f31c2a",
+      "affected_files": [
+        "lab/applications/commerce/v2/app.py"
+      ],
+      "expected_behavior_vA": "POST /api/coupons/apply with payload {'code': 'SAVE20'} validates coupon and applies 20% discount ($20.00 off).",
+      "observed_behavior_vB": "POST /api/coupons/apply fails with 422/400 Unprocessable Entity / Bad Request because backend expects 'couponCode' instead of 'code'.",
+      "ground_truth_root_cause": "Backend schema in v2 renamed required Pydantic model field from 'code' to 'couponCode' without backward compatibility or updating frontend request payload.",
+      "canonical_reproduction_steps": [
+        "1. Reset lab state: POST /api/reset",
+        "2. Add product P101 to cart: POST /api/cart with {'product_id': 'P101', 'quantity': 1}",
+        "3. Apply coupon SAVE20: POST /api/coupons/apply with {'code': 'SAVE20'}",
+        "4. Observe 422/400 validation failure on Version B vs 200 OK on Version A"
+      ]
+    },
+    {
+      "defect_id": "DEF-002",
+      "title": "Broken Navigation Target for Checkout Route",
+      "category": "navigation",
+      "severity": "critical",
+      "affected_flow": "Cart -> Proceed to Checkout",
+      "introducing_commit": "4b82e1d",
+      "affected_files": [
+        "lab/applications/commerce/v2/static/cart.html"
+      ],
+      "expected_behavior_vA": "Clicking 'Proceed to Checkout' button navigates to '/checkout.html' with HTTP status 200.",
+      "observed_behavior_vB": "Button href incorrectly points to '/checkout-v2.html', resulting in HTTP 404 Not Found error and blocking checkout.",
+      "ground_truth_root_cause": "Router link href attribute was modified to point to non-existent route '/checkout-v2.html'.",
+      "canonical_reproduction_steps": [
+        "1. Add product to cart: POST /api/cart",
+        "2. Inspect 'Proceed to Checkout' anchor href in cart.html",
+        "3. Request the href URL: GET /checkout-v2.html returns 404 Not Found on Version B"
+      ]
+    },
+    {
+      "defect_id": "DEF-003",
+      "title": "Cart Item Quantity State Hydration Bug",
+      "category": "state_persistence",
+      "severity": "medium",
+      "affected_flow": "Cart -> State Hydration / Render",
+      "introducing_commit": "9d14f3b",
+      "affected_files": [
+        "lab/applications/commerce/v2/static/app.js"
+      ],
+      "expected_behavior_vA": "Adding 3 units of product P101 renders item quantity as 'Qty: 3' in the cart interface.",
+      "observed_behavior_vB": "Cart interface renders item quantity hardcoded as 'Qty: 1' despite backend storing quantity = 3.",
+      "ground_truth_root_cause": "Client renderCart function in v2 hardcodes rendered string to 'Qty: 1' instead of reading item.quantity from state payload.",
+      "canonical_reproduction_steps": [
+        "1. Reset lab: POST /api/reset",
+        "2. Add 3 items of P101: POST /api/cart with {'product_id': 'P101', 'quantity': 3}",
+        "3. Check rendered cart HTML: Version B shows 'Qty: 1', Version A shows 'Qty: 3'"
+      ]
+    },
+    {
+      "defect_id": "DEF-004",
+      "title": "Incorrect Tax Calculation Formula",
+      "category": "calculation",
+      "severity": "high",
+      "affected_flow": "Cart -> Tax & Total Summary",
+      "introducing_commit": "2e7a9c4",
+      "affected_files": [
+        "lab/applications/commerce/v2/app.py"
+      ],
+      "expected_behavior_vA": "Tax is calculated as 10% of taxable subtotal ($100 subtotal -> $10.00 tax).",
+      "observed_behavior_vB": "Tax is calculated as $1.00 per item count ($100 single item -> $1.00 tax instead of $10.00).",
+      "ground_truth_root_cause": "Tax calculation formula in _calculate_cart_summary was changed from 'taxable_amount * 0.10' to 'float(item_count) * 1.0'.",
+      "canonical_reproduction_steps": [
+        "1. Reset lab: POST /api/reset",
+        "2. Add product P103 ($149.99): POST /api/cart with {'product_id': 'P103', 'quantity': 1}",
+        "3. GET /api/cart",
+        "4. Version A tax_amount = $15.00; Version B tax_amount = $1.00"
+      ]
+    },
+    {
+      "defect_id": "DEF-005",
+      "title": "Missing Form Accessibility Labels and Required Attributes",
+      "category": "accessibility",
+      "severity": "medium",
+      "affected_flow": "Checkout -> Shipping Form",
+      "introducing_commit": "6c381d5",
+      "affected_files": [
+        "lab/applications/commerce/v2/static/checkout.html"
+      ],
+      "expected_behavior_vA": "Shipping inputs have explicit associated <label for='...'> tags and aria-required='true' / required attributes.",
+      "observed_behavior_vB": "Input fields have unassociated <span> tags and lack required / aria-required attributes.",
+      "ground_truth_root_cause": "Form template rewrite removed accessible label-for associations and HTML5 required attributes.",
+      "canonical_reproduction_steps": [
+        "1. Inspect checkout.html input elements",
+        "2. Version A has <label for='customer-name'> and aria-required='true'; Version B has <span> and lacks aria-required"
+      ]
+    },
+    {
+      "defect_id": "DEF-006",
+      "title": "Catalog Search Latency Regression",
+      "category": "performance",
+      "severity": "medium",
+      "affected_flow": "Catalog -> Product Search",
+      "introducing_commit": "5a92b4e",
+      "affected_files": [
+        "lab/applications/commerce/v2/app.py"
+      ],
+      "expected_behavior_vA": "GET /api/products?query=laptop responds in < 100ms.",
+      "observed_behavior_vB": "GET /api/products?query=laptop executes blocking sleep, taking > 2000ms to respond.",
+      "ground_truth_root_cause": "Synchronous blocking delay loop introduced in query search endpoint handler.",
+      "canonical_reproduction_steps": [
+        "1. Measure request latency for GET /api/products?query=laptop",
+        "2. Version A latency < 100ms; Version B latency > 2000ms"
+      ]
+    }
+  ],
+  "non_regressions": [
+    {
+      "non_reg_id": "NONREG-001",
+      "type": "visual_styling",
+      "description": "Header navigation bar upgraded with modern purple-indigo gradient, emoji brand title 'RETRACE Store 🛍️', and rounded pill styling.",
+      "expected_classification": "non_regression",
+      "reasoning": "Cosmetic aesthetic redesign that does not alter underlying navigation or functional capabilities."
+    },
+    {
+      "non_reg_id": "NONREG-002",
+      "type": "copywriting",
+      "description": "Product badge label updated from 'Best Seller' to 'Popular Choice'.",
+      "expected_classification": "non_regression",
+      "reasoning": "Text copy enhancement with zero functional or structural regression."
+    },
+    {
+      "non_reg_id": "NONREG-003",
+      "type": "optional_feature",
+      "description": "Added optional 'Gift Wrapping (+$5.00)' checkbox in checkout form.",
+      "expected_classification": "non_regression",
+      "reasoning": "Additive backward-compatible optional feature that defaults to unchecked and does not break existing order placement."
+    }
+  ]
+}

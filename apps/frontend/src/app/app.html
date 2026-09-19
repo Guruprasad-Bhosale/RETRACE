@@ -1,0 +1,61 @@
+<div class="min-h-screen bg-slate-950 text-slate-100 flex">
+  <!-- Sidebar Navigation -->
+  <aside class="w-64 bg-slate-900/90 border-r border-slate-800 flex flex-col justify-between shrink-0">
+    <div>
+      <!-- Brand Logo / Name -->
+      <div class="h-16 px-6 flex items-center gap-3 border-b border-slate-800">
+        <div class="h-8 w-8 rounded-lg bg-indigo-600 flex items-center justify-center font-black text-white text-base shadow-md shadow-indigo-500/20">
+          R
+        </div>
+        <div>
+          <span class="font-bold text-base text-white tracking-wide">RETRACE</span>
+          <span class="block text-[10px] text-slate-400 font-mono font-medium -mt-0.5">Autonomous AI Platform</span>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="p-4 space-y-1.5">
+        <a
+          routerLink="/dashboard"
+          routerLinkActive="bg-indigo-600/15 text-indigo-400 border-indigo-500/50"
+          [routerLinkActiveOptions]="{ exact: false }"
+          class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:bg-slate-800/80 hover:text-white border border-transparent transition"
+        >
+          <span class="text-base">📊</span>
+          <span>System Dashboard</span>
+        </a>
+
+        <a
+          routerLink="/projects"
+          routerLinkActive="bg-indigo-600/15 text-indigo-400 border-indigo-500/50"
+          class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:bg-slate-800/80 hover:text-white border border-transparent transition"
+        >
+          <span class="text-base">📁</span>
+          <span>Projects</span>
+        </a>
+
+        <a
+          routerLink="/analyses"
+          routerLinkActive="bg-indigo-600/15 text-indigo-400 border-indigo-500/50"
+          class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:bg-slate-800/80 hover:text-white border border-transparent transition"
+        >
+          <span class="text-base">🔬</span>
+          <span>Analyses & Runs</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Sidebar Footer -->
+    <div class="p-4 border-t border-slate-800 text-xs text-slate-500">
+      <div class="flex items-center gap-2">
+        <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
+        <span>Phase 0 • Architecture Baseline</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <main class="flex-1 overflow-y-auto p-8 max-w-7xl">
+    <router-outlet></router-outlet>
+  </main>
+</div>

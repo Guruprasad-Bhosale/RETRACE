@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Confirmation - RETRACE Store</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen">
+  <header class="border-b border-purple-900/50 bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 sticky top-0 z-50 backdrop-blur">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-3">
+        <span class="h-8 w-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center font-black text-white">R</span>
+        <span class="font-bold text-lg text-white">RETRACE Store 🛍️ (v2.0.0)</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="max-w-2xl mx-auto px-6 py-16 text-center">
+    <div class="inline-flex h-16 w-16 rounded-full bg-emerald-950 border border-emerald-800 items-center justify-center text-emerald-400 text-3xl mb-4">
+      ✓
+    </div>
+    <h1 class="text-3xl font-bold tracking-tight text-white mb-2">Thank You for Your Order!</h1>
+    <p class="text-sm text-slate-400 mb-6">Your order has been placed successfully.</p>
+
+    <div class="bg-slate-800/80 p-6 rounded-xl border border-slate-700 text-left space-y-3 mb-8">
+      <div class="flex justify-between text-sm border-b border-slate-700 pb-2">
+        <span class="text-slate-400">Order Reference:</span>
+        <span id="confirmed-order-id" class="font-mono font-bold text-purple-400">Loading...</span>
+      </div>
+      <div class="flex justify-between text-sm">
+        <span class="text-slate-400">Total Paid:</span>
+        <span id="confirmed-order-total" class="font-bold text-white">$0.00</span>
+      </div>
+    </div>
+
+    <a
+      href="/"
+      class="inline-block px-6 py-2.5 rounded-lg bg-purple-600 hover:bg-purple-500 text-white text-sm font-semibold transition"
+    >
+      Return to Store
+    </a>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

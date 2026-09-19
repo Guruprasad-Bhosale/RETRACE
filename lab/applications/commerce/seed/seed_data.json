@@ -1,0 +1,129 @@
+{
+  "products": [
+    {
+      "id": "P101",
+      "name": "UltraBook Pro 15",
+      "category": "Laptops",
+      "price": 1299.99,
+      "inventory": 25,
+      "rating": 4.8,
+      "badge": "Best Seller",
+      "description": "High-performance laptop with 32GB RAM and 1TB SSD."
+    },
+    {
+      "id": "P102",
+      "name": "Noise-Cancelling Headphones 700",
+      "category": "Audio",
+      "price": 349.99,
+      "inventory": 50,
+      "rating": 4.9,
+      "badge": "Top Rated",
+      "description": "Premium wireless headphones with active noise cancellation."
+    },
+    {
+      "id": "P103",
+      "name": "Ergonomic Mechanical Keyboard",
+      "category": "Accessories",
+      "price": 149.99,
+      "inventory": 40,
+      "rating": 4.7,
+      "badge": "Staff Pick",
+      "description": "Tactile mechanical switches with RGB backlighting."
+    },
+    {
+      "id": "P104",
+      "name": "4K Ultra-HD Monitor 27-inch",
+      "category": "Displays",
+      "price": 499.99,
+      "inventory": 15,
+      "rating": 4.6,
+      "badge": null,
+      "description": "Color-accurate IPS display with HDR support."
+    },
+    {
+      "id": "P105",
+      "name": "Wireless Precision Mouse",
+      "category": "Accessories",
+      "price": 79.99,
+      "inventory": 80,
+      "rating": 4.5,
+      "badge": null,
+      "description": "Ergonomic multi-device Bluetooth mouse."
+    },
+    {
+      "id": "P106",
+      "name": "USB-C Dual 4K Docking Station",
+      "category": "Accessories",
+      "price": 199.99,
+      "inventory": 30,
+      "rating": 4.6,
+      "badge": null,
+      "description": "100W Power Delivery and dual display ports."
+    },
+    {
+      "id": "P107",
+      "name": "Smart Watch Active 4",
+      "category": "Wearables",
+      "price": 249.99,
+      "inventory": 45,
+      "rating": 4.4,
+      "badge": null,
+      "description": "Fitness tracking, heart rate monitor, and GPS."
+    },
+    {
+      "id": "P108",
+      "name": "Developer Coffee Mug",
+      "category": "Merchandise",
+      "price": 19.99,
+      "inventory": 100,
+      "rating": 4.9,
+      "badge": "Popular",
+      "description": "Ceramic insulated mug for software engineers."
+    }
+  ],
+  "coupons": [
+    {
+      "code": "SAVE20",
+      "type": "percentage",
+      "value": 20,
+      "active": true,
+      "description": "20% discount on entire order"
+    },
+    {
+      "code": "WELCOME10",
+      "type": "percentage",
+      "value": 10,
+      "active": true,
+      "description": "10% welcome discount"
+    },
+    {
+      "code": "FLAT50",
+      "type": "fixed",
+      "value": 50.00,
+      "min_subtotal": 200.00,
+      "active": true,
+      "description": "$50 off on orders over $200"
+    },
+    {
+      "code": "EXPIRED50",
+      "type": "percentage",
+      "value": 50,
+      "active": false,
+      "description": "Expired promotional coupon"
+    }
+  ],
+  "users": [
+    {
+      "id": "U101",
+      "email": "alex.chen@example.com",
+      "name": "Alex Chen",
+      "address": "123 Tech Way, San Francisco, CA 94107"
+    },
+    {
+      "id": "U102",
+      "email": "sarah.connor@example.com",
+      "name": "Sarah Connor",
+      "address": "456 Cyber St, Los Angeles, CA 90001"
+    }
+  ]
+}

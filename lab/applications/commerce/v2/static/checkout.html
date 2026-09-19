@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - RETRACE Store</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen">
+  <header class="border-b border-purple-900/50 bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 sticky top-0 z-50 backdrop-blur">
+    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-3">
+        <span class="h-8 w-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center font-black text-white">R</span>
+        <span class="font-bold text-lg text-white">RETRACE Store 🛍️ (v2.0.0)</span>
+      </a>
+      <a href="/cart.html" class="text-sm font-medium text-slate-400 hover:text-white">← Return to Cart</a>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-6 py-8">
+    <h1 class="text-2xl font-bold tracking-tight text-white mb-6">Complete Your Order</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Checkout Form -->
+      <form id="checkout-form" class="md:col-span-2 space-y-4 bg-slate-800/80 p-6 rounded-xl border border-slate-700">
+        <h2 class="text-base font-semibold text-white mb-4">Shipping & Payment Details</h2>
+
+        <!-- DEF-005: Missing explicit labels and required/aria-required attributes -->
+        <div>
+          <span class="text-xs text-slate-400 mb-1 block">Customer Name</span>
+          <input
+            id="customer-name"
+            name="customer_name"
+            type="text"
+            placeholder="Alex Chen"
+            class="w-full bg-slate-900 text-sm rounded-lg px-3.5 py-2 border border-slate-700 text-white focus:outline-none focus:border-purple-500"
+          >
+        </div>
+
+        <div>
+          <span class="text-xs text-slate-400 mb-1 block">Email</span>
+          <input
+            id="customer-email"
+            name="customer_email"
+            type="email"
+            placeholder="alex.chen@example.com"
+            class="w-full bg-slate-900 text-sm rounded-lg px-3.5 py-2 border border-slate-700 text-white focus:outline-none focus:border-purple-500"
+          >
+        </div>
+
+        <div>
+          <span class="text-xs text-slate-400 mb-1 block">Address</span>
+          <input
+            id="shipping-address"
+            name="shipping_address"
+            type="text"
+            placeholder="123 Tech Way, San Francisco, CA 94107"
+            class="w-full bg-slate-900 text-sm rounded-lg px-3.5 py-2 border border-slate-700 text-white focus:outline-none focus:border-purple-500"
+          >
+        </div>
+
+        <div>
+          <span class="text-xs text-slate-400 mb-1 block">Payment Method</span>
+          <select
+            id="payment-method"
+            name="payment_method"
+            class="w-full bg-slate-900 text-sm rounded-lg px-3.5 py-2 border border-slate-700 text-white focus:outline-none focus:border-purple-500"
+          >
+            <option value="credit_card">Credit Card (Simulated)</option>
+            <option value="paypal">PayPal</option>
+            <option value="apple_pay">Apple Pay</option>
+          </select>
+        </div>
+
+        <!-- NONREG-003: Optional gift wrapping checkbox feature -->
+        <div class="pt-2">
+          <label class="flex items-center gap-2 text-xs text-slate-300 cursor-pointer">
+            <input type="checkbox" id="gift-wrapping" name="gift_wrapping" class="rounded bg-slate-900 border-slate-700 text-purple-600 focus:ring-0">
+            <span>Add Premium Gift Wrapping (Optional)</span>
+          </label>
+        </div>
+
+        <button
+          type="submit"
+          id="place-order-btn"
+          class="w-full mt-4 py-3 rounded-lg bg-purple-600 hover:bg-purple-500 text-white text-sm font-semibold transition shadow-md shadow-purple-600/20"
+        >
+          Place Order
+        </button>
+      </form>
+
+      <!-- Order Review Sidebar -->
+      <div class="p-6 rounded-xl bg-slate-800/80 border border-slate-700 h-fit space-y-4">
+        <h2 class="text-base font-semibold text-white border-b border-slate-700 pb-3">Cart Summary</h2>
+        <div id="checkout-items-list" class="space-y-2 text-xs text-slate-300 max-h-48 overflow-y-auto"></div>
+        <div class="space-y-1.5 pt-3 border-t border-slate-700 text-xs">
+          <div class="flex justify-between text-slate-400"><span>Subtotal:</span><span id="checkout-subtotal">$0.00</span></div>
+          <div id="checkout-discount-row" class="flex justify-between text-emerald-400 hidden"><span>Discount:</span><span id="checkout-discount">-$0.00</span></div>
+          <div class="flex justify-between text-slate-400"><span>Tax:</span><span id="checkout-tax">$0.00</span></div>
+          <div class="flex justify-between text-sm font-bold text-white pt-2 border-t border-slate-700"><span>Total:</span><span id="checkout-total">$0.00</span></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
