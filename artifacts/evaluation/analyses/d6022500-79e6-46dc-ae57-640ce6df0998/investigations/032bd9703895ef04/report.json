@@ -1,0 +1,208 @@
+{
+  "evidence_chain": {
+    "chain_id": "chain_36e27328",
+    "leaf_node_id": "node_test_c8b04e47",
+    "nodes": [
+      {
+        "details": {
+          "from_state_a": "ed179321078c9e55b45f7a313e51b77f7ade256c8626a124c2d2e69cbb20a96a",
+          "from_state_b": "08c230f55937c2da04dc7bb773c2e96e2024348d77308fde61c286699c610857",
+          "to_state_a": "2fdb8e0d6275236fb77a50f19d35bb7546cef109b390e7b288126dbdd60e97bc",
+          "to_state_b": "1307308e248e54a013af61facf09ee1173ba919035be805bc0a05437c19b60e1"
+        },
+        "evidence_ids": [
+          "7f1b54f6b6edab7b"
+        ],
+        "node_id": "node_diff_7f1b54f6",
+        "node_type": "OBSERVED_DIFFERENCE",
+        "phase_origin": "Phase 6: Semantic Difference Engine",
+        "status": "OBSERVED",
+        "summary": "Behavioral delta observed on subject 'transition:ed179321078c9e55b45f7a313e51b77f7ade256c8626a124c2d2e69cbb20a96a->2fdb8e0d6275236fb77a50f19d35bb7546cef109b390e7b288126dbdd60e97bc'.",
+        "title": "Observed Semantic Difference"
+      },
+      {
+        "details": {
+          "category": "NAVIGATION",
+          "reason": "Transition from state 'ed179321078c9e55b45f7a313e51b77f7ade256c8626a124c2d2e69cbb20a96a' reached '2fdb8e0d6275236fb77a50f19d35bb7546cef109b390e7b288126dbdd60e97bc' in Version A, but reached '1307308e248e54a013af61facf09ee1173ba919035be805bc0a05437c19b60e1' in Version B.",
+          "rule_id": "NAV-TRANSITION-TARGET"
+        },
+        "evidence_ids": [
+          "36e273282cb631ae"
+        ],
+        "node_id": "node_clf_36e27328",
+        "node_type": "REGRESSION_CLASSIFICATION",
+        "phase_origin": "Phase 7: Regression Classification",
+        "status": "REGRESSION_CANDIDATE",
+        "summary": "Classified as REGRESSION_CANDIDATE under rule 'NAV-TRANSITION-TARGET': Transition from state 'ed179321078c9e55b45f7a313e51b77f7ade256c8626a124c2d2e69cbb20a96a' reached '2fdb8e0d6275236fb77a50f19d35bb7546cef109b390e7b288126dbdd60e97bc' in Version A, but reached '1307308e248e54a013af61facf09ee1173ba919035be805bc0a05437c19b60e1' in Version B.",
+        "title": "Regression Classification: NAVIGATION"
+      },
+      {
+        "details": {
+          "attempts": 0,
+          "path_signature": "invalid",
+          "strategy": "DIRECT_REPLAY"
+        },
+        "evidence_ids": [
+          "a85d5324db461505"
+        ],
+        "node_id": "node_repro_a85d5324",
+        "node_type": "REPRODUCTION_REPLAY",
+        "phase_origin": "Phase 8: Autonomous Reproduction",
+        "status": "FAILED",
+        "summary": "Executed 0 causal replay steps with status FAILED.",
+        "title": "Autonomous Fresh Reproduction"
+      },
+      {
+        "details": {
+          "attributions_count": 20,
+          "candidate_locations_count": 20,
+          "status": "INCONCLUSIVE"
+        },
+        "evidence_ids": [
+          "c51d2e65a0b11d5e"
+        ],
+        "node_id": "node_rc_c51d2e65",
+        "node_type": "ROOT_CAUSE_LOCALIZATION",
+        "phase_origin": "Phase 9: Root Cause Localization & Attribution",
+        "status": "INCONCLUSIVE",
+        "summary": "Localization status: INCONCLUSIVE.",
+        "title": "Root Cause Localization"
+      },
+      {
+        "details": {
+          "framework": "PLAYWRIGHT",
+          "language": "TYPESCRIPT",
+          "validation_status": "STRUCTURALLY_VALIDATED"
+        },
+        "evidence_ids": [
+          "c8b04e47a862364f"
+        ],
+        "node_id": "node_test_c8b04e47",
+        "node_type": "SYNTHESIZED_TEST",
+        "phase_origin": "Phase 10: Test Synthesis",
+        "status": "INCOMPLETE",
+        "summary": "Synthesized PLAYWRIGHT test with 0 steps and 0 assertions (STRUCTURALLY_VALIDATED).",
+        "title": "Synthesized Playwright Test"
+      }
+    ],
+    "root_node_id": "node_diff_7f1b54f6"
+  },
+  "provenance": {
+    "classification_id": "36e273282cb631ae",
+    "difference_id": "7f1b54f6b6edab7b",
+    "reproduction_id": "a85d5324db461505",
+    "root_cause_id": "c51d2e65a0b11d5e",
+    "test_id": "c8b04e47a862364f"
+  },
+  "regression_id": "36e273282cb631ae",
+  "report_id": "aa5479646b421b29",
+  "sections": [
+    {
+      "content_markdown": "### Overview\n- **Classification**: `REGRESSION_CANDIDATE` (NAVIGATION)\n- **Reproduction**: `FAILED`\n- **Root Cause Localization**: `INCONCLUSIVE`\n- **Regression Test Synthesis**: `INCOMPLETE`\n\n### Key Finding\nRETRACE identified a `NAVIGATION` regression triggered by deterministic rule `NAV-TRANSITION-TARGET`.",
+      "evidence_ids": [
+        "36e273282cb631ae"
+      ],
+      "metadata": {},
+      "section_id": "sec_1_executive_summary",
+      "section_number": 1,
+      "title": "1. Executive Summary"
+    },
+    {
+      "content_markdown": "- **Classification ID**: `36e273282cb631ae`\n- **Category**: `NAVIGATION`\n- **Status**: `REGRESSION_CANDIDATE`\n- **Deterministic Rule**: `NAV-TRANSITION-TARGET`\n- **Reasoning**: Transition from state 'ed179321078c9e55b45f7a313e51b77f7ade256c8626a124c2d2e69cbb20a96a' reached '2fdb8e0d6275236fb77a50f19d35bb7546cef109b390e7b288126dbdd60e97bc' in Version A, but reached '1307308e248e54a013af61facf09ee1173ba919035be805bc0a05437c19b60e1' in Version B.\n- **Canonical Subject**: `transition:ed179321078c9e55b45f7a313e51b77f7ade256c8626a124c2d2e69cbb20a96a->2fdb8e0d6275236fb77a50f19d35bb7546cef109b390e7b288126dbdd60e97bc`\n- **Difference ID**: `7f1b54f6b6edab7b`",
+      "evidence_ids": [
+        "36e273282cb631ae"
+      ],
+      "metadata": {},
+      "section_id": "sec_2_regression_classification",
+      "section_number": 2,
+      "title": "2. Regression Classification"
+    },
+    {
+      "content_markdown": "- **Reproduction ID**: `a85d5324db461505`\n- **Outcome**: `FAILED`\n- **Strategy**: `DIRECT_REPLAY`\n- **Total Duration**: 0.05 ms\n- **Replay Attempts**: 0",
+      "evidence_ids": [
+        "a85d5324db461505"
+      ],
+      "metadata": {},
+      "section_id": "sec_3_reproduction_result",
+      "section_number": 3,
+      "title": "3. Reproduction Result"
+    },
+    {
+      "content_markdown": "Detailed semantic behavioral delta observed between baseline and target versions:\n- **to_state_a**: `2fdb8e0d6275236fb77a50f19d35bb7546cef109b390e7b288126dbdd60e97bc`\n- **to_state_b**: `1307308e248e54a013af61facf09ee1173ba919035be805bc0a05437c19b60e1`\n- **from_state_a**: `ed179321078c9e55b45f7a313e51b77f7ade256c8626a124c2d2e69cbb20a96a`\n- **from_state_b**: `08c230f55937c2da04dc7bb773c2e96e2024348d77308fde61c286699c610857`",
+      "evidence_ids": [
+        "7f1b54f6b6edab7b"
+      ],
+      "metadata": {},
+      "section_id": "sec_4_behavioral_difference",
+      "section_number": 4,
+      "title": "4. Behavioral Difference"
+    },
+    {
+      "content_markdown": "No reproduction action path recorded.",
+      "evidence_ids": [],
+      "metadata": {},
+      "section_id": "sec_5_reproduction_path",
+      "section_number": 5,
+      "title": "5. Reproduction Path"
+    },
+    {
+      "content_markdown": "| Dimension | Version A (Baseline) | Version B (Target / Candidate) |\n|---|---|---|\n| **Observed State** | `Baseline normal behavior` | `Observed regressed behavior` |\n| **Status** | Expected Functional Behavior | Regression Observed |",
+      "evidence_ids": [
+        "36e273282cb631ae"
+      ],
+      "metadata": {},
+      "section_id": "sec_6_expected_vs_actual",
+      "section_number": 6,
+      "title": "6. Expected vs Actual Behavior"
+    },
+    {
+      "content_markdown": "### Status: `INCONCLUSIVE SOURCE LOCALIZATION`\n- **Root Cause Status**: `INCONCLUSIVE`\n> [!NOTE]\n> Source diff analysis was inconclusive; no definitive source change could be linked to the behavioral regression.",
+      "evidence_ids": [
+        "c51d2e65a0b11d5e"
+      ],
+      "metadata": {},
+      "section_id": "sec_7_source_localization",
+      "section_number": 7,
+      "title": "7. Source Localization"
+    },
+    {
+      "content_markdown": "No Git commit could be authoritatively attributed to this regression.",
+      "evidence_ids": [],
+      "metadata": {},
+      "section_id": "sec_8_commit_attribution",
+      "section_number": 8,
+      "title": "8. Commit Attribution"
+    },
+    {
+      "content_markdown": "Unbroken causal attribution graph linking observed difference to source attribution:\n\n```text\n[Phase 6: Semantic Difference Engine] Observed Semantic Difference -> OBSERVED\n    Evidence IDs: 7f1b54f6b6edab7b\n    Summary:      Behavioral delta observed on subject 'transition:ed179321078c9e55b45f7a313e51b77f7ade256c8626a124c2d2e69cbb20a96a->2fdb8e0d6275236fb77a50f19d35bb7546cef109b390e7b288126dbdd60e97bc'.\n  \u2193\n[Phase 7: Regression Classification] Regression Classification: NAVIGATION -> REGRESSION_CANDIDATE\n    Evidence IDs: 36e273282cb631ae\n    Summary:      Classified as REGRESSION_CANDIDATE under rule 'NAV-TRANSITION-TARGET': Transition from state 'ed179321078c9e55b45f7a313e51b77f7ade256c8626a124c2d2e69cbb20a96a' reached '2fdb8e0d6275236fb77a50f19d35bb7546cef109b390e7b288126dbdd60e97bc' in Version A, but reached '1307308e248e54a013af61facf09ee1173ba919035be805bc0a05437c19b60e1' in Version B.\n  \u2193\n[Phase 8: Autonomous Reproduction] Autonomous Fresh Reproduction -> FAILED\n    Evidence IDs: a85d5324db461505\n    Summary:      Executed 0 causal replay steps with status FAILED.\n  \u2193\n[Phase 9: Root Cause Localization & Attribution] Root Cause Localization -> INCONCLUSIVE\n    Evidence IDs: c51d2e65a0b11d5e\n    Summary:      Localization status: INCONCLUSIVE.\n  \u2193\n[Phase 10: Test Synthesis] Synthesized Playwright Test -> INCOMPLETE\n    Evidence IDs: c8b04e47a862364f\n    Summary:      Synthesized PLAYWRIGHT test with 0 steps and 0 assertions (STRUCTURALLY_VALIDATED).\n```",
+      "evidence_ids": [
+        "chain_36e27328"
+      ],
+      "metadata": {},
+      "section_id": "sec_9_evidence_chain",
+      "section_number": 9,
+      "title": "9. Evidence Chain"
+    },
+    {
+      "content_markdown": "- **Test ID**: `c8b04e47a862364f`\n- **Framework**: `PLAYWRIGHT` (TYPESCRIPT)\n- **Synthesis Status**: `INCOMPLETE`\n- **Validation Status**: `STRUCTURALLY_VALIDATED`\n- **Action Steps**: `0`\n- **Evidence Assertions**: `0`\n\n```typescript\n/**\n * RETRACE AUTONOMOUS REGRESSION TEST (Phase 10 Synthesis)\n * Test ID:           c8b04e47a862364f\n * Regression ID:     36e273282cb631ae\n * Reproduction ID:   a85d5324db461505\n * Root Cause ID:     c51d2e65a0b11d5e\n * Localized Source:  __init__.py:1, app.py:1, app.py:14, app.py:32, app.py:41, app.py:61, app.py:82, app.py:103, app.py:142, app.py:181, app.py:226, static/app.js:1, static/app.js:59, static/app.js:71, static/app.js:105, static/app.js:149, static/app.js:163, static/app.js:177, static/app.js:236, static/cart.html:7\n *\n * Derived strictly from empirical Phase 6-8 observations and Phase 9 source attribution.\n */\n\nimport { test, expect } from '@playwright/test';\n\nconst BASE_URL = process.env.RETRACE_TARGET_URL || process.env.RETRACE_BASE_URL || 'http://127.0.0.1:3000';\n\ntest.describe('Regression Test: NAVIGATION [36e27328]', () => {\n  test('reproduce and assert against regression', async ({ page, request }) => {\n    // 1. Setup listeners for runtime errors and network responses\n    const pageErrors: Error[] = [];\n    page.on('pageerror', (err) => pageErrors.push(err));\n\n    // Minimal navigation to application base URL\n    await page.goto(BASE_URL);\n\n    // 2. Evidence-grounded assertions\n    // Minimal baseline visibility assertion\n    await expect(page.locator('body')).toBeVisible();\n  });\n});\n\n```",
+      "evidence_ids": [
+        "c8b04e47a862364f"
+      ],
+      "metadata": {},
+      "section_id": "sec_10_generated_test",
+      "section_number": 10,
+      "title": "10. Generated Regression Test"
+    },
+    {
+      "content_markdown": "### Investigation Scope & Boundary Constraints\n- **Zero Automated Code Mutation**: RETRACE produces read-only investigations and executable reproduction scripts; no application source code was modified.\n- **Ground-Truth Isolation**: All findings are derived exclusively from dynamic browser execution, Git diff history, and deterministic AST symbol analysis.\n- **Heuristic / AI Independence**: Analysis contains zero stochastic LLM text generation, vector embeddings, or ungrounded heuristics.",
+      "evidence_ids": [],
+      "metadata": {},
+      "section_id": "sec_11_limitations",
+      "section_number": 11,
+      "title": "11. Limitations & Scope Boundaries"
+    }
+  ],
+  "status": "PARTIAL",
+  "summary": "Investigation for NAVIGATION regression is incomplete.",
+  "title": "RETRACE Investigation Report: NAVIGATION [36e27328]"
+}

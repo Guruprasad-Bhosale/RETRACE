@@ -1,0 +1,74 @@
+{
+  "total_cases": 3,
+  "complete_success_count": 2,
+  "partial_success_count": 0,
+  "inconclusive_count": 0,
+  "failure_count": 1,
+  "detection_tp": 0,
+  "detection_fp": 0,
+  "detection_fn": 1,
+  "detection_tn": 2,
+  "detection_precision": 1.0,
+  "detection_recall": 0.0,
+  "detection_specificity": 1.0,
+  "detection_f1": 0.0,
+  "classification_accuracy": 0.3333,
+  "reproduction_accuracy": 0.6667,
+  "file_localization_accuracy": 0.3333,
+  "symbol_localization_accuracy": 0.0,
+  "commit_attribution_accuracy": 0.3333,
+  "test_generation_rate": 0.0,
+  "test_structural_validity_rate": 0.0,
+  "category_metrics": [
+    {
+      "category": "CALCULATION",
+      "sample_size": 1,
+      "true_positives": 0,
+      "false_positives": 0,
+      "false_negatives": 1,
+      "precision": "INSUFFICIENT_SAMPLE",
+      "recall": "INSUFFICIENT_SAMPLE",
+      "f1": "INSUFFICIENT_SAMPLE"
+    },
+    {
+      "category": "FUNCTIONAL",
+      "sample_size": 1,
+      "true_positives": 0,
+      "false_positives": 0,
+      "false_negatives": 1,
+      "precision": "INSUFFICIENT_SAMPLE",
+      "recall": "INSUFFICIENT_SAMPLE",
+      "f1": "INSUFFICIENT_SAMPLE"
+    },
+    {
+      "category": "NON_REGRESSION",
+      "sample_size": 1,
+      "true_positives": 1,
+      "false_positives": 0,
+      "false_negatives": 0,
+      "precision": "INSUFFICIENT_SAMPLE",
+      "recall": "INSUFFICIENT_SAMPLE",
+      "f1": "INSUFFICIENT_SAMPLE"
+    }
+  ],
+  "confusion_matrix": {
+    "CALCULATION": {
+      "NONE": 1
+    },
+    "NON_REGRESSION": {
+      "NON_REGRESSION": 1
+    },
+    "FUNCTIONAL": {
+      "NONE": 1
+    }
+  },
+  "failure_taxonomy_counts": {
+    "CLASSIFICATION_FAILURE": 2,
+    "REPRODUCTION_FAILURE": 1,
+    "ROOT_CAUSE_FAILURE": 1,
+    "SYNTHESIS_FAILURE": 1
+  },
+  "repeat_runs_total": 0,
+  "identical_runs_count": 0,
+  "determinism_rate": 1.0
+}

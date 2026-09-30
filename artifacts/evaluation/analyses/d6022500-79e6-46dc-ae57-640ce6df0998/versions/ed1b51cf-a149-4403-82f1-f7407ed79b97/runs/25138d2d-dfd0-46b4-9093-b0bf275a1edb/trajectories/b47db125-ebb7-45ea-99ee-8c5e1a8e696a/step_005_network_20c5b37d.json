@@ -1,0 +1,32 @@
+[
+  {
+    "duration_ms": 11.501400003908202,
+    "end_time": 70388.8885541,
+    "failure_reason": null,
+    "method": "GET",
+    "request_body": null,
+    "request_headers": {
+      "accept-language": "en-US",
+      "content-type": "application/json",
+      "referer": "http://127.0.0.1:57880/",
+      "sec-ch-ua": "\"Not=A?Brand\";v=\"99\", \"HeadlessChrome\";v=\"151\", \"Chromium\";v=\"151\"",
+      "sec-ch-ua-mobile": "?0",
+      "sec-ch-ua-platform": "\"Windows\"",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36"
+    },
+    "request_id": "2340361391568",
+    "resource_type": "fetch",
+    "response_body": null,
+    "response_headers": {
+      "content-length": "588",
+      "content-type": "application/json",
+      "date": "Wed, 30 Sep 2026 09:33:59 GMT",
+      "server": "uvicorn"
+    },
+    "start_time": 70388.8770527,
+    "status_code": 200,
+    "status_text": "OK",
+    "step_index": 5,
+    "url": "http://127.0.0.1:57880/api/products?category=Accessories"
+  }
+]

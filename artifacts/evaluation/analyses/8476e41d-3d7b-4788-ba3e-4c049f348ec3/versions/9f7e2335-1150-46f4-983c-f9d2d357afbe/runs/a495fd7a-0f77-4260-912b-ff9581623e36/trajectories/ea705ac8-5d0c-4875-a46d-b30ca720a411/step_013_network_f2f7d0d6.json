@@ -1,0 +1,127 @@
+[
+  {
+    "duration_ms": 0.49679999938234687,
+    "end_time": 70200.8653689,
+    "failure_reason": null,
+    "method": "GET",
+    "request_body": null,
+    "request_headers": {
+      "accept-language": "en-US",
+      "referer": "http://127.0.0.1:49401/",
+      "sec-ch-ua": "\"Not=A?Brand\";v=\"99\", \"HeadlessChrome\";v=\"151\", \"Chromium\";v=\"151\"",
+      "sec-ch-ua-mobile": "?0",
+      "sec-ch-ua-platform": "\"Windows\"",
+      "upgrade-insecure-requests": "1",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36"
+    },
+    "request_id": "2674124068608",
+    "resource_type": "document",
+    "response_body": null,
+    "response_headers": {
+      "accept-ranges": "bytes",
+      "content-length": "3707",
+      "content-type": "text/html; charset=utf-8",
+      "date": "Wed, 30 Sep 2026 09:30:44 GMT",
+      "etag": "\"68b2b61c6efb0117d6780009585fce0c\"",
+      "last-modified": "Mon, 14 Sep 2026 16:59:33 GMT",
+      "server": "uvicorn"
+    },
+    "start_time": 70200.8648721,
+    "status_code": 200,
+    "status_text": "OK",
+    "step_index": 13,
+    "url": "http://127.0.0.1:49401/cart.html"
+  },
+  {
+    "duration_ms": 0.46999999904073775,
+    "end_time": 70200.8695441,
+    "failure_reason": null,
+    "method": "GET",
+    "request_body": null,
+    "request_headers": {
+      "referer": "http://127.0.0.1:49401/"
+    },
+    "request_id": "2674122191264",
+    "resource_type": "script",
+    "response_body": null,
+    "response_headers": {
+      "age": "1845956",
+      "cache-control": "max-age=31536000",
+      "cf-cache-status": "HIT",
+      "cf-ray": "a43236050a5089f0-BOM",
+      "content-encoding": "br",
+      "content-type": "text/javascript",
+      "date": "Wed, 30 Sep 2026 09:30:48 GMT",
+      "last-modified": "Sat, 19 Sep 2026 03:10:28 GMT",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=U27sEd0OHrEWXpubI5iq%2FhKrgKgBR6zUZywFQO6gLs8eA0%2FHhPgezwDyVbzDM%2B%2BfPWTPds1SQNehCJ1smF9mY8qmQqEQrLjnc8TAq6EhG4VV7SDLfTD%2F0p3dKyxcuIVeAOCecZ0%3D\"}]}",
+      "server": "cloudflare",
+      "strict-transport-security": "max-age=63072000",
+      "vary": "accept-encoding",
+      "x-vercel-cache": "MISS",
+      "x-vercel-id": "bom1::iad1::qmn97-1788914691008-e52f477f8295"
+    },
+    "start_time": 70200.8690741,
+    "status_code": 200,
+    "status_text": "",
+    "step_index": 13,
+    "url": "https://cdn.tailwindcss.com/"
+  },
+  {
+    "duration_ms": 0.26149999757763,
+    "end_time": 70200.8702549,
+    "failure_reason": null,
+    "method": "GET",
+    "request_body": null,
+    "request_headers": {
+      "referer": "http://127.0.0.1:49401/cart.html"
+    },
+    "request_id": "2674124173728",
+    "resource_type": "script",
+    "response_body": null,
+    "response_headers": {
+      "accept-ranges": "bytes",
+      "content-length": "9929",
+      "content-type": "text/javascript; charset=utf-8",
+      "date": "Wed, 30 Sep 2026 09:30:44 GMT",
+      "etag": "\"0223154d03c5bab35862f18cdcbd4a18\"",
+      "last-modified": "Mon, 14 Sep 2026 16:59:58 GMT",
+      "server": "uvicorn"
+    },
+    "start_time": 70200.8699934,
+    "status_code": 200,
+    "status_text": "OK",
+    "step_index": 13,
+    "url": "http://127.0.0.1:49401/static/app.js"
+  },
+  {
+    "duration_ms": 2.0548999891616404,
+    "end_time": 70200.9031402,
+    "failure_reason": null,
+    "method": "GET",
+    "request_body": null,
+    "request_headers": {
+      "accept-language": "en-US",
+      "content-type": "application/json",
+      "referer": "http://127.0.0.1:49401/cart.html",
+      "sec-ch-ua": "\"Not=A?Brand\";v=\"99\", \"HeadlessChrome\";v=\"151\", \"Chromium\";v=\"151\"",
+      "sec-ch-ua-mobile": "?0",
+      "sec-ch-ua-platform": "\"Windows\"",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36"
+    },
+    "request_id": "2674124169024",
+    "resource_type": "fetch",
+    "response_body": null,
+    "response_headers": {
+      "content-length": "221",
+      "content-type": "application/json",
+      "date": "Wed, 30 Sep 2026 09:30:51 GMT",
+      "server": "uvicorn"
+    },
+    "start_time": 70200.9010853,
+    "status_code": 200,
+    "status_text": "OK",
+    "step_index": 13,
+    "url": "http://127.0.0.1:49401/api/cart"
+  }
+]

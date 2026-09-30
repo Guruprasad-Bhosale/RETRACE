@@ -1,0 +1,12 @@
+[
+  {
+    "column_number": 1710,
+    "line_number": 63,
+    "severity": "warning",
+    "source_url": "https://cdn.tailwindcss.com/",
+    "stack_trace": null,
+    "step_index": 15,
+    "text": "cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in production, install it as a PostCSS plugin or use the Tailwind CLI: https://tailwindcss.com/docs/installation",
+    "timestamp": "2026-09-30 09:33:04.729887+00:00"
+  }
+]

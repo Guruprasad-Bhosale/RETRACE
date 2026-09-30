@@ -39,3 +39,5 @@ export interface AnalysisSession {
   completed_at?: string | null;
   created_at: string;
 }
+
+export * from './investigation.models';

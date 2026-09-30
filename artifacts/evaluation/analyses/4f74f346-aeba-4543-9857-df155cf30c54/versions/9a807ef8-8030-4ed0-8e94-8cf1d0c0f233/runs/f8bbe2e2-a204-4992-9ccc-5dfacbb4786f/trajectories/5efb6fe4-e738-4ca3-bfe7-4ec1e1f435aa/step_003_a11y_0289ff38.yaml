@@ -1,0 +1,50 @@
+- banner:
+  - link "R RETRACE Store (v1.0.0)":
+    - /url: /
+  - textbox "Search products..."
+  - link "🛒 Cart 0":
+    - /url: /cart.html
+- main:
+  - heading "Featured Products" [level=1]
+  - paragraph: High quality developer hardware and accessories
+  - button "All"
+  - button "Laptops"
+  - button "Audio"
+  - button "Accessories"
+  - button "Displays"
+  - text: Best Seller
+  - heading "UltraBook Pro 15" [level=3]
+  - paragraph: High-performance laptop with 32GB RAM and 1TB SSD.
+  - text: $1299.99 ⭐ 4.8 (25 in stock)
+  - button "Add to Cart"
+  - text: Top Rated
+  - heading "Noise-Cancelling Headphones 700" [level=3]
+  - paragraph: Premium wireless headphones with active noise cancellation.
+  - text: $349.99 ⭐ 4.9 (50 in stock)
+  - button "Add to Cart"
+  - text: Staff Pick
+  - heading "Ergonomic Mechanical Keyboard" [level=3]
+  - paragraph: Tactile mechanical switches with RGB backlighting.
+  - text: $149.99 ⭐ 4.7 (40 in stock)
+  - button "Add to Cart"
+  - heading "4K Ultra-HD Monitor 27-inch" [level=3]
+  - paragraph: Color-accurate IPS display with HDR support.
+  - text: $499.99 ⭐ 4.6 (15 in stock)
+  - button "Add to Cart"
+  - heading "Wireless Precision Mouse" [level=3]
+  - paragraph: Ergonomic multi-device Bluetooth mouse.
+  - text: $79.99 ⭐ 4.5 (80 in stock)
+  - button "Add to Cart"
+  - heading "USB-C Dual 4K Docking Station" [level=3]
+  - paragraph: 100W Power Delivery and dual display ports.
+  - text: $199.99 ⭐ 4.6 (30 in stock)
+  - button "Add to Cart"
+  - heading "Smart Watch Active 4" [level=3]
+  - paragraph: Fitness tracking, heart rate monitor, and GPS.
+  - text: $249.99 ⭐ 4.4 (45 in stock)
+  - button "Add to Cart"
+  - text: Popular
+  - heading "Developer Coffee Mug" [level=3]
+  - paragraph: Ceramic insulated mug for software engineers.
+  - text: $19.99 ⭐ 4.9 (100 in stock)
+  - button "Add to Cart"

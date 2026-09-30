@@ -1,0 +1,18 @@
+- banner:
+  - link "R RETRACE Store 🛍️ (v2.0.0)":
+    - /url: /
+  - link "← Continue Shopping":
+    - /url: /
+- main:
+  - heading "Shopping Cart" [level=1]
+  - text: Your shopping cart is empty.
+  - link "Browse Catalog":
+    - /url: /
+  - heading "Order Summary" [level=2]
+  - text: Promotional Coupon
+  - textbox "Promotional Coupon":
+    - /placeholder: e.g. SAVE20
+  - button "Apply"
+  - text: Subtotal $0.00 Estimated Tax $0.00 Total $0.00
+  - link "Proceed to Checkout →":
+    - /url: /checkout-v2.html

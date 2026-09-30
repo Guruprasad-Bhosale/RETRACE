@@ -1,0 +1,327 @@
+{
+  "suite_id": "synthetic-suite",
+  "suite_name": "RETRACE Synthetic Benchmark Suite",
+  "run_id": "2284b350-c474-4c38-b994-e46df9809f20",
+  "results": [
+    {
+      "evaluation_id": "dad29180-6663-43e7-b814-3ceb926076e1",
+      "case_id": "SYNTH-001",
+      "workflow_id": "eval_SYNTH-001_e1b1ab49",
+      "analysis_id": "e81fc223-c739-4ee3-803b-2e629f2e24c1",
+      "end_to_end_status": "FAILURE",
+      "detection": {
+        "is_regression_expected": true,
+        "is_regression_detected": false,
+        "true_positive": false,
+        "false_positive": false,
+        "false_negative": true,
+        "true_negative": false
+      },
+      "classification": {
+        "expected_category": "CALCULATION",
+        "observed_category": null,
+        "category_matched": false,
+        "expected_severity": "HIGH",
+        "observed_severity": null,
+        "severity_matched": false
+      },
+      "reproduction": {
+        "expected_reproduced": true,
+        "actual_reproduced": false,
+        "match_status": null,
+        "reproduction_matched": false,
+        "reproduction_rate": 0.0,
+        "attempts_count": 0
+      },
+      "root_cause": {
+        "file_matched": false,
+        "symbol_matched": false,
+        "line_region_matched": false,
+        "commit_matched": false,
+        "expected_files": [
+          "src/pricing.py"
+        ],
+        "observed_files": [],
+        "expected_commits": [
+          "c0ffee1"
+        ],
+        "observed_commits": [],
+        "attribution_tier": null,
+        "localization_status": null
+      },
+      "synthesis": {
+        "expected_synthesized": true,
+        "test_generated": false,
+        "structurally_validated": false,
+        "executed_successfully": false,
+        "reproduces_target": false,
+        "code_size_bytes": 0,
+        "assertions_count": 0
+      },
+      "timing": {
+        "total_duration_s": 13.73134129999709,
+        "phase_durations_s": {
+          "validate_inputs": 0.0,
+          "prepare_versions": 0.0,
+          "explore": 6.524943,
+          "align": 0.0,
+          "diff": 0.0,
+          "classify": 0.0,
+          "finalize_no_regression": 0.0,
+          "total": 7.20639829999709
+        }
+      },
+      "resources": {
+        "browser_sessions_count": 2,
+        "artifacts_bytes": 0,
+        "workflow_retries": 0,
+        "nodes_executed": 7
+      },
+      "failure_taxonomy": [
+        "CLASSIFICATION_FAILURE",
+        "CLASSIFICATION_FAILURE",
+        "REPRODUCTION_FAILURE",
+        "ROOT_CAUSE_FAILURE",
+        "SYNTHESIS_FAILURE"
+      ],
+      "deterministic_signature": "SYNTH-001:FAILURE:None:False:False:False",
+      "notes": [
+        "False negative: Expected regression was not detected.",
+        "Classification category mismatch: expected CALCULATION, observed None",
+        "Reproduction mismatch: expected reproducible regression, but reproduction failed.",
+        "Root cause file mismatch: expected ['pricing.py'], observed []",
+        "Test synthesis missing: expected generated regression test."
+      ],
+      "evaluated_at": "2026-09-30T09:41:36.431100Z"
+    },
+    {
+      "evaluation_id": "a1621667-a431-4141-a856-5fadb882d5db",
+      "case_id": "SYNTH-002",
+      "workflow_id": "eval_SYNTH-002_86bb3ae6",
+      "analysis_id": "8a4299ec-5f34-49c3-b978-e2c15839e1ce",
+      "end_to_end_status": "COMPLETE_SUCCESS",
+      "detection": {
+        "is_regression_expected": false,
+        "is_regression_detected": false,
+        "true_positive": false,
+        "false_positive": false,
+        "false_negative": false,
+        "true_negative": true
+      },
+      "classification": {
+        "expected_category": "NON_REGRESSION",
+        "observed_category": "NON_REGRESSION",
+        "category_matched": true,
+        "expected_severity": "INFO",
+        "observed_severity": null,
+        "severity_matched": false
+      },
+      "reproduction": {
+        "expected_reproduced": false,
+        "actual_reproduced": false,
+        "match_status": null,
+        "reproduction_matched": true,
+        "reproduction_rate": 0.0,
+        "attempts_count": 0
+      },
+      "root_cause": {
+        "file_matched": true,
+        "symbol_matched": false,
+        "line_region_matched": false,
+        "commit_matched": true,
+        "expected_files": [],
+        "observed_files": [],
+        "expected_commits": [],
+        "observed_commits": [],
+        "attribution_tier": null,
+        "localization_status": null
+      },
+      "synthesis": {
+        "expected_synthesized": false,
+        "test_generated": false,
+        "structurally_validated": false,
+        "executed_successfully": false,
+        "reproduces_target": false,
+        "code_size_bytes": 0,
+        "assertions_count": 0
+      },
+      "timing": {
+        "total_duration_s": 13.890900200012656,
+        "phase_durations_s": {
+          "validate_inputs": 0.0,
+          "prepare_versions": 0.0,
+          "explore": 6.587222,
+          "align": 0.0,
+          "diff": 0.0,
+          "classify": 0.0,
+          "finalize_no_regression": 0.0,
+          "total": 7.303678200012655
+        }
+      },
+      "resources": {
+        "browser_sessions_count": 2,
+        "artifacts_bytes": 0,
+        "workflow_retries": 0,
+        "nodes_executed": 7
+      },
+      "failure_taxonomy": [],
+      "deterministic_signature": "SYNTH-002:COMPLETE_SUCCESS:NON_REGRESSION:False:True:False",
+      "notes": [],
+      "evaluated_at": "2026-09-30T09:41:43.735377Z"
+    },
+    {
+      "evaluation_id": "4c5f12ae-047d-4b9e-b7bd-c5af1a311dff",
+      "case_id": "SYNTH-003",
+      "workflow_id": "eval_SYNTH-003_e923a6f8",
+      "analysis_id": "948f9bf2-70e1-404a-b177-192a03cb12ea",
+      "end_to_end_status": "COMPLETE_SUCCESS",
+      "detection": {
+        "is_regression_expected": false,
+        "is_regression_detected": false,
+        "true_positive": false,
+        "false_positive": false,
+        "false_negative": false,
+        "true_negative": true
+      },
+      "classification": {
+        "expected_category": "FUNCTIONAL",
+        "observed_category": null,
+        "category_matched": false,
+        "expected_severity": "LOW",
+        "observed_severity": null,
+        "severity_matched": false
+      },
+      "reproduction": {
+        "expected_reproduced": false,
+        "actual_reproduced": false,
+        "match_status": null,
+        "reproduction_matched": true,
+        "reproduction_rate": 0.0,
+        "attempts_count": 0
+      },
+      "root_cause": {
+        "file_matched": false,
+        "symbol_matched": false,
+        "line_region_matched": false,
+        "commit_matched": false,
+        "expected_files": [],
+        "observed_files": [],
+        "expected_commits": [],
+        "observed_commits": [],
+        "attribution_tier": null,
+        "localization_status": null
+      },
+      "synthesis": {
+        "expected_synthesized": false,
+        "test_generated": false,
+        "structurally_validated": false,
+        "executed_successfully": false,
+        "reproduces_target": false,
+        "code_size_bytes": 0,
+        "assertions_count": 0
+      },
+      "timing": {
+        "total_duration_s": 13.753612400006055,
+        "phase_durations_s": {
+          "validate_inputs": 0.0,
+          "prepare_versions": 0.0,
+          "explore": 6.51285,
+          "align": 0.001005,
+          "diff": 0.0,
+          "classify": 0.0,
+          "finalize_no_regression": 0.0,
+          "total": 7.239757400006056
+        }
+      },
+      "resources": {
+        "browser_sessions_count": 2,
+        "artifacts_bytes": 0,
+        "workflow_retries": 0,
+        "nodes_executed": 7
+      },
+      "failure_taxonomy": [],
+      "deterministic_signature": "SYNTH-003:COMPLETE_SUCCESS:None:False:False:False",
+      "notes": [],
+      "evaluated_at": "2026-09-30T09:41:50.971355Z"
+    }
+  ],
+  "summary": {
+    "total_cases": 3,
+    "complete_success_count": 2,
+    "partial_success_count": 0,
+    "inconclusive_count": 0,
+    "failure_count": 1,
+    "detection_tp": 0,
+    "detection_fp": 0,
+    "detection_fn": 1,
+    "detection_tn": 2,
+    "detection_precision": 1.0,
+    "detection_recall": 0.0,
+    "detection_specificity": 1.0,
+    "detection_f1": 0.0,
+    "classification_accuracy": 0.3333,
+    "reproduction_accuracy": 0.6667,
+    "file_localization_accuracy": 0.3333,
+    "symbol_localization_accuracy": 0.0,
+    "commit_attribution_accuracy": 0.3333,
+    "test_generation_rate": 0.0,
+    "test_structural_validity_rate": 0.0,
+    "category_metrics": [
+      {
+        "category": "CALCULATION",
+        "sample_size": 1,
+        "true_positives": 0,
+        "false_positives": 0,
+        "false_negatives": 1,
+        "precision": "INSUFFICIENT_SAMPLE",
+        "recall": "INSUFFICIENT_SAMPLE",
+        "f1": "INSUFFICIENT_SAMPLE"
+      },
+      {
+        "category": "FUNCTIONAL",
+        "sample_size": 1,
+        "true_positives": 0,
+        "false_positives": 0,
+        "false_negatives": 1,
+        "precision": "INSUFFICIENT_SAMPLE",
+        "recall": "INSUFFICIENT_SAMPLE",
+        "f1": "INSUFFICIENT_SAMPLE"
+      },
+      {
+        "category": "NON_REGRESSION",
+        "sample_size": 1,
+        "true_positives": 1,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": "INSUFFICIENT_SAMPLE",
+        "recall": "INSUFFICIENT_SAMPLE",
+        "f1": "INSUFFICIENT_SAMPLE"
+      }
+    ],
+    "confusion_matrix": {
+      "CALCULATION": {
+        "NONE": 1
+      },
+      "NON_REGRESSION": {
+        "NON_REGRESSION": 1
+      },
+      "FUNCTIONAL": {
+        "NONE": 1
+      }
+    },
+    "failure_taxonomy_counts": {
+      "CLASSIFICATION_FAILURE": 2,
+      "REPRODUCTION_FAILURE": 1,
+      "ROOT_CAUSE_FAILURE": 1,
+      "SYNTHESIS_FAILURE": 1
+    },
+    "repeat_runs_total": 0,
+    "identical_runs_count": 0,
+    "determinism_rate": 1.0
+  },
+  "environment_info": {
+    "total_suite_cases": 3,
+    "executed_cases": 3
+  },
+  "executed_at": "2026-09-30T09:41:50.971355Z"
+}

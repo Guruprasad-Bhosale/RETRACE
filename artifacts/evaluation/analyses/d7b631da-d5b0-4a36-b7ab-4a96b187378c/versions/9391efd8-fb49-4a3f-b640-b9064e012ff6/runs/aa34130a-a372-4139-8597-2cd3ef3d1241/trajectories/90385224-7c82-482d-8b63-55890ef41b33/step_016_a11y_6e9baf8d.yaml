@@ -1,0 +1,17 @@
+- banner:
+  - link "R RETRACE Store 🛍️ (v2.0.0)":
+    - /url: /
+  - link "← Continue Shopping":
+    - /url: /
+- main:
+  - heading "Shopping Cart" [level=1]
+  - heading "UltraBook Pro 15" [level=3]
+  - text: "$1299.99 each Qty: 1 $3899.97"
+  - heading "Order Summary" [level=2]
+  - text: Promotional Coupon
+  - textbox "Promotional Coupon":
+    - /placeholder: e.g. SAVE20
+  - button "Apply"
+  - text: Subtotal $3899.97 Estimated Tax $3.00 Total $3902.97
+  - link "Proceed to Checkout →":
+    - /url: /checkout-v2.html
