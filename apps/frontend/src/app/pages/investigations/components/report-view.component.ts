@@ -7,35 +7,37 @@ import { StatusBadgeComponent } from './status-badge.component';
   selector: 'app-report-view',
   standalone: true,
   imports: [CommonModule, StatusBadgeComponent],
+  styles: [':host { display: block; }'],
   template: `
-    <div class="space-y-6">
+
+    <div class="space-y-6 font-mono">
       <!-- Report Header Card -->
-      <div class="p-5 rounded-xl bg-slate-900 border border-slate-800 flex flex-wrap items-center justify-between gap-4">
+      <div class="p-5 rounded bento-card border border-(--grid) flex flex-wrap items-center justify-between gap-4">
         <div class="space-y-1">
           <div class="flex items-center gap-3">
-            <h3 class="text-base font-bold text-slate-100">{{ report?.title || 'Investigation Report' }}</h3>
+            <h3 class="text-base font-bold text-(--ink) uppercase">{{ report?.title || 'Investigation Report' }}</h3>
             <app-status-badge [status]="report?.status || 'PARTIAL'"></app-status-badge>
           </div>
-          <p class="text-xs text-slate-400">
+          <p class="text-xs text-(--muted)">
             {{ report?.summary || 'Comprehensive evidence-backed investigation report.' }}
           </p>
         </div>
 
         <!-- Mode Toggle & Actions -->
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2">
           <!-- Format Switcher -->
-          <div class="p-1 rounded-lg bg-slate-950 border border-slate-800 flex text-xs font-mono">
+          <div class="p-1 rounded bento-card-elevated border border-(--grid) flex text-xs">
             <button
               (click)="formatMode.set('markdown')"
-              class="px-2.5 py-1 rounded transition"
-              [ngClass]="formatMode() === 'markdown' ? 'bg-indigo-600 text-white font-bold' : 'text-slate-400 hover:text-slate-200'"
+              class="px-2.5 py-1 rounded transition cursor-pointer"
+              [ngClass]="formatMode() === 'markdown' ? 'btn-retrace font-bold' : 'text-(--muted) hover:text-(--ink)'"
             >
               Markdown
             </button>
             <button
               (click)="formatMode.set('json')"
-              class="px-2.5 py-1 rounded transition"
-              [ngClass]="formatMode() === 'json' ? 'bg-indigo-600 text-white font-bold' : 'text-slate-400 hover:text-slate-200'"
+              class="px-2.5 py-1 rounded transition cursor-pointer"
+              [ngClass]="formatMode() === 'json' ? 'btn-retrace font-bold' : 'text-(--muted) hover:text-(--ink)'"
             >
               JSON
             </button>
@@ -43,13 +45,13 @@ import { StatusBadgeComponent } from './status-badge.component';
 
           <button
             (click)="copyReportContent()"
-            class="px-3.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-mono font-medium border border-slate-700 transition"
+            class="px-3.5 py-1.5 rounded bento-card-elevated hover:border-(--or) text-(--ink) text-xs font-medium border border-(--grid) transition cursor-pointer"
           >
             {{ copied() ? '✓ Copied' : '📋 Copy' }}
           </button>
           <button
             (click)="downloadReport()"
-            class="px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-mono font-medium shadow-md shadow-indigo-600/20 transition"
+            class="btn-retrace text-xs py-1.5 px-3 flex items-center gap-2 cursor-pointer"
           >
             💾 Download
           </button>
@@ -60,23 +62,23 @@ import { StatusBadgeComponent } from './status-badge.component';
       <div *ngIf="formatMode() === 'markdown'" class="space-y-4">
         <div
           *ngFor="let sec of report?.sections || []"
-          class="p-5 rounded-xl bg-slate-900 border border-slate-800 space-y-2"
+          class="p-5 rounded bento-card border border-(--grid) space-y-2"
         >
-          <div class="flex items-center justify-between border-b border-slate-800 pb-2">
-            <h4 class="text-sm font-bold text-slate-100">{{ sec.title }}</h4>
-            <span *ngIf="sec.evidence_ids.length > 0" class="text-[11px] font-mono text-slate-500">
+          <div class="flex items-center justify-between border-b border-(--grid) pb-2">
+            <h4 class="text-sm font-bold text-(--ink) uppercase">{{ sec.title }}</h4>
+            <span *ngIf="sec.evidence_ids.length > 0" class="text-[11px] text-(--muted)">
               Refs: {{ sec.evidence_ids.join(', ') }}
             </span>
           </div>
-          <div class="text-xs text-slate-300 whitespace-pre-wrap font-sans leading-relaxed">
+          <div class="text-xs text-(--ink) whitespace-pre-wrap leading-relaxed">
             {{ sec.content_markdown }}
           </div>
         </div>
       </div>
 
       <!-- JSON View -->
-      <div *ngIf="formatMode() === 'json'" class="p-4 rounded-xl bg-slate-950 border border-slate-800">
-        <pre class="font-mono text-xs text-slate-300 overflow-x-auto p-2 leading-relaxed whitespace-pre">{{ formattedJson }}</pre>
+      <div *ngIf="formatMode() === 'json'" class="p-4 rounded bento-card border border-(--grid)">
+        <pre class="text-xs text-(--ink) overflow-x-auto p-3 leading-relaxed whitespace-pre bento-card-elevated rounded border border-(--grid)">{{ formattedJson }}</pre>
       </div>
     </div>
   `,

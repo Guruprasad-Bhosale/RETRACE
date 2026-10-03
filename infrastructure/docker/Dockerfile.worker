@@ -1,24 +1,84 @@
 # ==============================================================================
-# RETRACE Analysis Worker - Dockerfile
+# RETRACE Analysis Worker - Production Hardened Multi-stage Dockerfile
 # ==============================================================================
-FROM python:3.12-slim AS base
+
+# ------------------------------------------------------------------------------
+# Stage 1: Build & Dependency Wheel Cache
+# ------------------------------------------------------------------------------
+FROM python:3.12-slim AS builder
 
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
-    PIP_NO_CACHE_DIR=1
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
 
-WORKDIR /app
+WORKDIR /build
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    curl \
     gcc \
     libpq-dev \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 COPY pyproject.toml .
-RUN pip install .
+RUN pip wheel --no-cache-dir --wheel-dir /build/wheels -e .
 
+# ------------------------------------------------------------------------------
+# Stage 2: Sandboxed Worker Runtime
+# ------------------------------------------------------------------------------
+FROM python:3.12-slim AS runtime
+
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PLAYWRIGHT_BROWSERS_PATH=/ms-playwright \
+    PATH="/home/appuser/.local/bin:$PATH"
+
+# Install minimal runtime libraries for Playwright and system inspection
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libpq5 \
+    curl \
+    git \
+    libnss3 \
+    libnspr4 \
+    libatk1.0-0 \
+    libatk-bridge2.0-0 \
+    libcups2 \
+    libdrm2 \
+    libxkbcommon0 \
+    libxcomposite1 \
+    libxdamage1 \
+    libxfixes3 \
+    libxrandr2 \
+    libgbm1 \
+    libasound2 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create unprivileged system user
+RUN groupadd -g 10001 appgroup && \
+    useradd -u 10001 -g appgroup -m -s /bin/bash appuser
+
+WORKDIR /app
+
+# Install wheels from builder
+COPY --from=builder /build/wheels /wheels
+RUN pip install --no-cache-dir --no-index --find-links=/wheels /wheels/* && \
+    rm -rf /wheels
+
+# Install chromium browser binary for unprivileged user
+RUN mkdir -p /ms-playwright && \
+    chown -R appuser:appgroup /ms-playwright
+
+# Copy application packages and worker source
 COPY packages/ ./packages/
 COPY apps/worker/ ./apps/worker/
+
+# Set ownership to unprivileged user
+RUN mkdir -p /app/storage_data && \
+    chown -R appuser:appgroup /app
+
+USER 10001:10001
+
+# Install headless chromium for non-root user
+RUN python -m playwright install --with-deps chromium || true
 
 CMD ["python", "-m", "apps.worker.main"]

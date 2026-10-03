@@ -1,70 +1,162 @@
-<div class="min-h-screen bg-slate-950 text-slate-100 flex">
-  <!-- Sidebar Navigation -->
-  <aside class="w-64 bg-slate-900/90 border-r border-slate-800 flex flex-col justify-between shrink-0">
-    <div>
-      <!-- Brand Logo / Name -->
-      <div class="h-16 px-6 flex items-center gap-3 border-b border-slate-800">
-        <div class="h-8 w-8 rounded-lg bg-indigo-600 flex items-center justify-center font-black text-white text-base shadow-md shadow-indigo-500/20">
-          R
+<!-- Global Background Grid and Ambient Glow -->
+<div id="grid"></div>
+<div id="glow"></div>
+
+@if (!isLandingPage()) {
+  <!-- Top Fixed System Bar (Command Center) -->
+  <header
+    id="top"
+    class="fixed top-0 left-0 right-0 z-40 flex justify-between items-start p-4 md:px-8 pointer-events-none transition-all duration-300"
+  >
+    <div class="pointer-events-auto flex items-center gap-4">
+      <a
+        routerLink="/dashboard"
+        class="inline-block bg-(--bg) border border-(--grid) border-l-[3px] border-l-(--or) px-3.5 py-2 no-underline shadow-sm hover:border-(--gs) transition"
+      >
+        <div class="text-lg md:text-xl font-extrabold tracking-tighter leading-none text-(--ink)">
+          RETRACE<i class="text-(--or) not-italic">.</i>
         </div>
-        <div>
-          <span class="font-bold text-base text-white tracking-wide">RETRACE</span>
-          <span class="block text-[10px] text-slate-400 font-mono font-medium -mt-0.5">Autonomous AI Platform</span>
+        <div class="m text-[9px] mt-1 hidden sm:block tracking-widest">
+          RTRC / 001 • AUTONOMOUS REGRESSION INVESTIGATION
         </div>
-      </div>
-
-      <!-- Navigation Links -->
-      <nav class="p-4 space-y-1.5">
-        <a
-          routerLink="/dashboard"
-          routerLinkActive="bg-indigo-600/15 text-indigo-400 border-indigo-500/50"
-          [routerLinkActiveOptions]="{ exact: false }"
-          class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:bg-slate-800/80 hover:text-white border border-transparent transition"
-        >
-          <span class="text-base">📊</span>
-          <span>System Dashboard</span>
-        </a>
-
-        <a
-          routerLink="/projects"
-          routerLinkActive="bg-indigo-600/15 text-indigo-400 border-indigo-500/50"
-          class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:bg-slate-800/80 hover:text-white border border-transparent transition"
-        >
-          <span class="text-base">📁</span>
-          <span>Projects</span>
-        </a>
-
-        <a
-          routerLink="/analyses"
-          routerLinkActive="bg-indigo-600/15 text-indigo-400 border-indigo-500/50"
-          class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:bg-slate-800/80 hover:text-white border border-transparent transition"
-        >
-          <span class="text-base">🔬</span>
-          <span>Analyses & Runs</span>
-        </a>
-
-        <a
-          routerLink="/investigations"
-          routerLinkActive="bg-indigo-600/15 text-indigo-400 border-indigo-500/50"
-          class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:bg-slate-800/80 hover:text-white border border-transparent transition"
-        >
-          <span class="text-base">🔍</span>
-          <span>Investigations</span>
-        </a>
-      </nav>
+      </a>
     </div>
 
-    <!-- Sidebar Footer -->
-    <div class="p-4 border-t border-slate-800 text-xs text-slate-500">
-      <div class="flex items-center gap-2">
-        <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
-        <span>Phase 11 • Command Center</span>
+    <div class="pointer-events-auto flex items-center gap-2 sm:gap-4 bg-(--bg) border border-(--grid) px-3 py-1.5 shadow-sm text-xs font-mono">
+      <!-- Subsystem Status Indicators -->
+      <div class="hidden lg:flex items-center gap-4 text-[11px] text-(--muted) border-r border-(--grid) pr-4">
+        <span class="flex items-center gap-1.5">
+          <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          API: <strong class="text-(--ink)">ONLINE</strong>
+        </span>
+        <span class="flex items-center gap-1.5">
+          <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+          WORKER: <strong class="text-(--ink)">ACTIVE</strong>
+        </span>
+        <span class="flex items-center gap-1.5">
+          <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+          QUEUE: <strong class="text-(--ink)">STREAMS</strong>
+        </span>
+        <span class="flex items-center gap-1.5">
+          <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+          DATABASE: <strong class="text-(--ink)">PG16</strong>
+        </span>
       </div>
-    </div>
-  </aside>
 
-  <!-- Main Content Area -->
-  <main class="flex-1 overflow-y-auto p-8 max-w-7xl">
-    <router-outlet></router-outlet>
-  </main>
-</div>
+      <!-- Theme Toggle -->
+      <button
+        (click)="themeService.toggleTheme()"
+        class="px-2.5 py-1 rounded bg-transparent hover:border-(--or) border border-(--grid) text-[10px] font-mono font-bold uppercase tracking-wider text-(--ink) transition cursor-pointer"
+        aria-label="Toggle light or dark theme"
+      >
+        {{ themeService.currentTheme() | uppercase }}
+      </button>
+
+      <!-- Mobile Menu Trigger -->
+      <button
+        (click)="toggleMobileMenu()"
+        class="lg:hidden px-2.5 py-1 rounded bg-transparent hover:border-(--or) border border-(--grid) text-[10px] font-mono font-bold uppercase tracking-wider text-(--ink) transition cursor-pointer"
+        [attr.aria-expanded]="mobileMenuOpen()"
+        aria-controls="menu"
+      >
+        {{ mobileMenuOpen() ? 'CLOSE' : 'MENU' }}
+      </button>
+    </div>
+  </header>
+
+  <!-- Right-Side Vertical Navigation Rail (Desktop Command Center) -->
+  <nav
+    id="rail"
+    aria-label="Sections Navigation"
+    class="hidden lg:block fixed right-0 top-1/2 -translate-y-1/2 z-30 pointer-events-none"
+    style="--ih: 52px; width: 230px;"
+  >
+    <!-- Animated Orange Active Indicator -->
+    <i
+      class="absolute right-0 top-0 w-1 bg-(--or) z-10 transition-transform duration-500 ease-(--ease-retrace)"
+      [style.height]="'calc(var(--ih) - 6px)'"
+      [style.margin-top]="'3px'"
+      [style.transform]="'translateY(calc(var(--ih) * ' + activeNavIndex() + '))'"
+    ></i>
+
+    <div class="flex flex-col space-y-0.5">
+      @for (item of navItems; track item.number; let i = $index) {
+        <a
+          [routerLink]="item.route"
+          (click)="setActiveIndex(i)"
+          class="group flex justify-end h-[52px] py-[3px] no-underline pointer-events-auto"
+        >
+          <span
+            class="flex items-center gap-3 w-[46px] group-hover:w-[230px] h-full overflow-hidden whitespace-nowrap bg-(--bg) border border-(--grid) border-r-0 px-3.5 transition-all duration-500 ease-(--ease-retrace) shadow-sm"
+            [ngClass]="activeNavIndex() === i ? '!bg-(--ink) !text-(--bg) !border-(--ink)' : 'hover:border-(--gs)'"
+          >
+            <b
+              class="font-mono text-xs min-w-[18px]"
+              [ngClass]="activeNavIndex() === i ? 'text-(--or) font-bold' : 'text-(--muted)'"
+            >
+              {{ item.number }}
+            </b>
+
+            <span class="flex flex-col opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+              <span class="flex items-center gap-1.5">
+                <strong class="text-xs uppercase tracking-wider font-bold leading-tight">
+                  {{ item.title }}
+                </strong>
+                <span
+                  *ngIf="i === 3 && isCurrentRouteInvestigation()"
+                  class="px-1 py-0.2 text-[8px] bg-(--or) text-stone-900 rounded font-bold uppercase"
+                >
+                  ACTIVE
+                </span>
+              </span>
+              <em class="font-mono text-[9px] not-italic uppercase opacity-70 text-(--muted)" [ngClass]="activeNavIndex() === i ? '!text-(--bg)' : ''">
+                {{ item.subtitle }}
+              </em>
+            </span>
+          </span>
+        </a>
+      }
+    </div>
+  </nav>
+
+  <!-- Fullscreen Immersive Mobile Navigation Overlay -->
+  <div
+    id="menu"
+    class="fixed inset-0 z-35 bg-(--ink) text-(--bg) p-8 pt-24 overflow-y-auto lg:hidden transition-all duration-500 ease-(--ease-retrace)"
+    [ngClass]="mobileMenuOpen() ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-full'"
+    [attr.aria-hidden]="!mobileMenuOpen()"
+  >
+    <div class="space-y-4 max-w-md mx-auto">
+      <div class="m text-[10px] text-(--or) tracking-widest uppercase border-b border-stone-800 pb-2 mb-4">
+        NAVIGATION INDEX
+      </div>
+      @for (item of navItems; track item.number; let i = $index) {
+        <a
+          [routerLink]="item.route"
+          (click)="closeMobileMenu(i)"
+          class="flex items-baseline gap-4 py-3 border-b border-stone-800/80 no-underline text-(--bg) hover:text-(--or) transition group"
+        >
+          <span class="font-mono text-sm text-(--or) font-bold">{{ item.number }}</span>
+          <span class="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight group-hover:translate-x-2 transition-transform">
+            {{ item.title }}
+          </span>
+        </a>
+      }
+    </div>
+  </div>
+
+  <!-- Command Center Application Content Surface with Rail Padding -->
+  <div class="min-h-screen pt-20 pb-16 px-4 sm:px-8 lg:pr-24 max-w-7xl mx-auto relative z-10">
+    <main class="w-full page-enter">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+} @else {
+  <!-- Public Landing Page Dedicated Surface (Full Width Canvas) -->
+  <div class="min-h-screen w-full relative z-10">
+    <main class="w-full">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+}
+

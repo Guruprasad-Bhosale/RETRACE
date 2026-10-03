@@ -1,0 +1,624 @@
+<!-- RETRACE PUBLIC PRODUCT WEBSITE — FINAL POLISHED EDITORIAL & STORY-DRIVEN -->
+
+<!-- Cinematic Laser Scan Curtain Overlay (Landing -> Command Center Transition) -->
+<div class="transition-curtain" [class.active]="isTransitioning()">
+  <div class="transition-laser"></div>
+  <div class="text-center space-y-3 z-10 font-mono">
+    <div class="text-(--or) text-2xl font-black tracking-widest animate-pulse">RETRACE.</div>
+    <div class="text-xs text-(--retrace-text-dark) tracking-wider">
+      INITIALIZING FORENSIC COMMAND CENTER...
+    </div>
+    <div class="text-[10px] text-stone-500">ENGAGING DETERMINISTIC PIPELINE</div>
+  </div>
+</div>
+
+<div class="min-h-screen bg-(--bg) text-(--ink) selection:bg-(--or) selection:text-black font-sans">
+
+  <!-- ========================================================================= -->
+  <!-- TOP MINIMAL FULL-WIDTH HEADER                                             -->
+  <!-- ========================================================================= -->
+  <header class="sticky top-0 z-40 backdrop-blur-md bg-(--bg)/90 border-b border-(--grid) py-4 transition-colors duration-300">
+    <div class="max-w-[1720px] w-full mx-auto px-6 sm:px-10 lg:px-16 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a (click)="scrollToSection('#hero', $event)" href="#hero" class="flex items-center gap-2 no-underline group cursor-pointer">
+        <span class="text-xl sm:text-2xl font-extrabold tracking-tighter text-(--ink) group-hover:text-(--or) transition-colors">
+          RETRACE<span class="text-(--or)">.</span>
+        </span>
+      </a>
+
+      <!-- Minimal Navigation Anchors -->
+      <nav class="hidden md:flex items-center gap-8 lg:gap-12 text-xs font-mono tracking-wider text-(--muted)">
+        @for (item of landingNavItems; track item.anchor) {
+          <a
+            [href]="item.anchor"
+            (click)="scrollToSection(item.anchor, $event)"
+            class="hover:text-(--ink) transition-colors no-underline cursor-pointer font-bold"
+          >
+            {{ item.label }}
+          </a>
+        }
+      </nav>
+
+      <!-- Right Action Hub: Theme Toggle & Enter Retrace CTA -->
+      <div class="flex items-center gap-3">
+        <button
+          type="button"
+          (click)="themeService.toggleTheme()"
+          class="px-2.5 py-1 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider border border-(--grid) bg-(--surface) text-(--ink) hover:border-(--or) transition cursor-pointer"
+          aria-label="Toggle theme"
+        >
+          {{ themeService.currentTheme() | uppercase }}
+        </button>
+
+        <!-- Primary Entry Action -->
+        <button
+          type="button"
+          (click)="enterRetrace()"
+          class="btn-retrace text-xs py-2 px-5 flex items-center gap-2 font-mono font-bold tracking-wider cursor-pointer shadow-sm"
+        >
+          <span>ENTER RETRACE</span>
+          <span class="text-sm">&rarr;</span>
+        </button>
+
+        <!-- Mobile Menu Trigger -->
+        <button
+          type="button"
+          (click)="toggleMobileNav()"
+          class="md:hidden p-2 rounded-md border border-(--grid) bg-(--surface) text-(--ink) text-xs font-mono cursor-pointer"
+          aria-label="Toggle navigation menu"
+        >
+          {{ mobileNavOpen() ? '✕' : '☰' }}
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Dropdown -->
+  @if (mobileNavOpen()) {
+    <div class="md:hidden fixed inset-x-0 top-[65px] z-30 bg-(--surface) border-b border-(--grid) p-6 space-y-4 font-mono text-sm">
+      @for (item of landingNavItems; track item.anchor) {
+        <a
+          [href]="item.anchor"
+          (click)="scrollToSection(item.anchor, $event)"
+          class="block py-2 border-b border-(--grid) text-(--ink) hover:text-(--or) no-underline font-bold"
+        >
+          {{ item.label }}
+        </a>
+      }
+      <button
+        type="button"
+        (click)="enterRetrace()"
+        class="w-full btn-retrace text-xs py-3 mt-4 text-center justify-center font-bold cursor-pointer"
+      >
+        ENTER RETRACE COMMAND CENTER &rarr;
+      </button>
+    </div>
+  }
+
+  <!-- ========================================================================= -->
+  <!-- MAIN FULL-WIDTH LANDING PAGE CONTAINER                                    -->
+  <!-- ========================================================================= -->
+  <main class="max-w-[1720px] w-full mx-auto px-6 sm:px-10 lg:px-16">
+
+    <!-- ======================================================================= -->
+    <!-- 01 — HERO SECTION (FULL WIDTH & BALANCED VERTICAL COMPOSITION)          -->
+    <!-- ======================================================================= -->
+    <section id="hero" class="min-h-[calc(100svh-5.5rem)] flex flex-col justify-between py-8 lg:py-14 scroll-mt-20">
+      
+      <!-- 12-Column Full-Width Editorial Hero Grid -->
+      <div class="grid grid-cols-12 gap-8 lg:gap-16 items-center my-auto">
+        
+        <!-- Left 7 Columns (58%): Wordmark, Headline, Copy & Primary CTA -->
+        <div class="col-span-12 lg:col-span-7 space-y-6">
+          
+          <!-- Small Technical Eyebrow -->
+          <div class="font-mono text-[11px] font-bold tracking-widest text-(--or) uppercase flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-(--or) animate-pulse"></span>
+            <span>AUTONOMOUS REGRESSION INVESTIGATION</span>
+          </div>
+
+          <!-- Large Responsive Wordmark Canvas -->
+          <div class="w-full max-w-2xl h-24 sm:h-32 md:h-36 relative -ml-1">
+            <app-tech-text
+              text="RETRACE."
+              [fontWeight]="900"
+              [fontSize]="130"
+              [letterSpacing]="-0.04"
+              color="#FF5A1F"
+              accentColor="#FF5A1F"
+              reveal="letter"
+              [dashLength]="4"
+              [dashGap]="2"
+              [specks]="15"
+              [selection]="true"
+              [labels]="true"
+              [draggable]="true"
+              [sweep]="true"
+              [speed]="1"
+            />
+          </div>
+
+          <!-- Main Editorial Statement with Unified Left Alignment Edge -->
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight text-(--ink) leading-[1.06]">
+            Find what changed.<br>
+            <span class="text-(--or)">Prove why it changed.</span>
+          </h1>
+
+          <!-- Concise Supporting Narrative (Controlled Max Width) -->
+          <p class="text-base sm:text-lg lg:text-xl text-(--muted) leading-relaxed max-w-[650px]">
+            RETRACE investigates regressions between software versions by connecting real runtime behavior to verifiable evidence and source changes.
+          </p>
+
+          <!-- Primary & Secondary CTA Actions -->
+          <div class="flex flex-wrap items-center gap-6 pt-3 font-mono">
+            <button
+              type="button"
+              (click)="enterRetrace()"
+              class="btn-retrace text-sm sm:text-base py-4 px-8 flex items-center gap-3 cursor-pointer shadow-md"
+            >
+              <span class="font-bold tracking-wider">ENTER RETRACE</span>
+              <span class="text-base font-bold">&rarr;</span>
+            </button>
+
+            <a
+              href="#how-it-works"
+              (click)="scrollToSection('#how-it-works', $event)"
+              class="text-xs sm:text-sm text-(--muted) hover:text-(--ink) transition-colors no-underline flex items-center gap-2 cursor-pointer py-2 font-bold"
+            >
+              <span>EXPLORE HOW IT WORKS</span>
+              <span class="text-(--or)">&darr;</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right 5 Columns (42%): Substantial Forensic Trajectory Timeline -->
+        <div class="col-span-12 lg:col-span-5 p-6 sm:p-8 rounded-[24px] bg-(--surface)/70 border border-(--grid) font-mono text-xs shadow-xl backdrop-blur-md">
+          
+          <div class="text-[11px] text-(--or) uppercase font-bold tracking-wider mb-6 pb-3 border-b border-(--grid) flex items-center justify-between">
+            <span class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-(--or)"></span>
+              <span>FORENSIC TRAJECTORY</span>
+            </span>
+            <span class="text-(--muted) text-[10px]">TIMELINE // 01</span>
+          </div>
+
+          <!-- Vertical Timeline Spine & Stages -->
+          <div class="relative pl-7 space-y-4">
+            <!-- Continuous Gradient Line Spine -->
+            <div class="absolute left-3 top-2 bottom-2 w-[2px] bg-gradient-to-b from-emerald-500 via-(--or) to-rose-500 opacity-60"></div>
+
+            @for (stage of heroTrajectoryStages; track stage.num; let i = $index) {
+              <div
+                (mouseenter)="setHoveredTrajectory(i)"
+                (mouseleave)="setHoveredTrajectory(null)"
+                class="relative flex items-center justify-between p-3 rounded-xl border border-(--grid)/60 transition-all duration-300 cursor-default"
+                [class.bg-(--elevated)]="hoveredTrajectoryIndex() === i || hoveredTrajectoryIndex() === null"
+                [class.border-(--or)]="hoveredTrajectoryIndex() === i"
+                [class.opacity-40]="hoveredTrajectoryIndex() !== null && hoveredTrajectoryIndex() !== i"
+              >
+                <!-- Node Marker -->
+                <div
+                  class="absolute -left-7 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2 border-(--bg) transition-transform duration-300"
+                  [class.scale-125]="hoveredTrajectoryIndex() === i"
+                  [class.bg-emerald-500]="stage.num === '01'"
+                  [class.bg-(--or)]="stage.num === '03' || stage.num === '05'"
+                  [class.bg-rose-500]="stage.num === '06'"
+                  [class.bg-(--muted)]="stage.num === '02' || stage.num === '04'"
+                ></div>
+
+                <div class="flex items-center gap-2.5">
+                  <span class="text-[10px] font-bold text-(--muted)">{{ stage.num }}</span>
+                  <span class="text-(--ink) font-bold text-xs sm:text-sm">{{ stage.title }}</span>
+                </div>
+
+                <span
+                  class="text-xs font-semibold"
+                  [class.text-emerald-500]="stage.num === '01'"
+                  [class.text-(--or)]="stage.num === '03' || stage.num === '05'"
+                  [class.text-rose-500]="stage.num === '06'"
+                  [class.text-(--muted)]="stage.num === '02' || stage.num === '04'"
+                >
+                  {{ stage.status }}
+                </span>
+              </div>
+            }
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Narrative Transition Indicator -->
+      <div class="pt-6 text-center">
+        <a
+          href="#mission"
+          (click)="scrollToSection('#mission', $event)"
+          class="inline-flex items-center gap-2 font-mono text-xs text-(--muted) hover:text-(--or) transition-colors no-underline uppercase tracking-wider font-bold"
+        >
+          <span>SCROLL TO TRACE THE STORY</span>
+          <span class="text-(--or)">&darr;</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- STORY TRANSITION: FULL-WIDTH TEXTLOOP                                   -->
+    <!-- ======================================================================= -->
+    <section class="py-10 lg:py-16 w-full overflow-hidden">
+      <app-text-loop
+        text="TRACE ✦ OBSERVE ✦ COMPARE ✦ EVIDENCE ✦ ROOT CAUSE ✦ REPRODUCE"
+        shape="wave"
+        color="var(--ink)"
+        separatorColor="#FF5A1F"
+        [speed]="65"
+        [curviness]="45"
+        [fontSize]="36"
+      />
+    </section>
+
+    <!-- Editorial Separator -->
+    <div class="border-t border-(--grid) relative">
+      <div class="absolute left-0 -top-px w-12 h-[2px] bg-(--or)"></div>
+    </div>
+
+    <!-- ======================================================================= -->
+    <!-- 02 — MISSION & CAUSAL PATH (FULL WIDTH)                                 -->
+    <!-- ======================================================================= -->
+    <section id="mission" class="min-h-[75vh] lg:min-h-[85vh] flex flex-col justify-between py-20 lg:py-32 scroll-mt-20">
+      <div class="space-y-12 my-auto">
+        <div class="font-mono text-xs font-bold tracking-widest text-(--or) uppercase">
+          02 // MISSION
+        </div>
+
+        <div class="grid grid-cols-12 gap-8 lg:gap-16 items-start">
+          <div class="col-span-12 lg:col-span-6 space-y-3">
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-(--ink) tracking-tight leading-[1.08]">
+              Eliminating guesswork from<br>regression diagnosis.
+            </h2>
+          </div>
+
+          <div class="col-span-12 lg:col-span-6 text-(--muted) leading-relaxed text-base sm:text-lg lg:text-xl space-y-4">
+            <p>
+              Traditional debugging often starts with scattered logs and subjective assumptions. RETRACE reconstructs the path from observed behavior to evidence and source change.
+            </p>
+          </div>
+        </div>
+
+        <!-- Wide Horizontal Continuous Causal Path (Full Available Width) -->
+        <div class="pt-6">
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 font-mono text-xs">
+            @for (stage of causalStages; track stage.num) {
+              <div class="p-4 rounded-xl bg-(--surface) border border-(--grid) text-center space-y-1.5 transition-colors hover:border-(--or)/40">
+                <span class="text-[11px] text-(--or) font-bold block">{{ stage.num }}</span>
+                <strong class="text-(--ink) block text-xs sm:text-sm tracking-tight">{{ stage.title }}</strong>
+                <span class="text-[11px] text-(--muted) block font-semibold">{{ stage.status }}</span>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- Narrative Transition Hint -->
+      <div class="pt-8 text-center">
+        <a
+          href="#how-it-works"
+          (click)="scrollToSection('#how-it-works', $event)"
+          class="inline-flex items-center gap-2 font-mono text-xs text-(--muted) hover:text-(--or) transition-colors no-underline uppercase tracking-wider font-bold"
+        >
+          <span>FROM CAUSE TO REPRODUCTION</span>
+          <span class="text-(--or)">&darr;</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Editorial Separator -->
+    <div class="border-t border-(--grid) relative">
+      <div class="absolute left-0 -top-px w-12 h-[2px] bg-(--or)"></div>
+    </div>
+
+    <!-- ======================================================================= -->
+    <!-- 03 — HOW IT WORKS (FOUR SPACIOUS EDITORIAL PILLARS)                     -->
+    <!-- ======================================================================= -->
+    <section id="how-it-works" class="min-h-[80vh] lg:min-h-[90vh] flex flex-col justify-between py-20 lg:py-32 scroll-mt-20">
+      <div class="space-y-12 my-auto">
+        <div class="font-mono text-xs font-bold tracking-widest text-(--or) uppercase">
+          03 // HOW IT WORKS
+        </div>
+
+        <div class="space-y-3">
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-(--ink) tracking-tight">
+            From behavior to explanation.
+          </h2>
+          <p class="text-base sm:text-lg text-(--muted) max-w-3xl">
+            RETRACE follows a structured path from observation to reproducible evidence.
+          </p>
+        </div>
+
+        <!-- 4 Spacious Editorial Pillars -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          @for (step of workflowStages; track step.num) {
+            <div class="group p-6 lg:p-8 rounded-2xl bg-(--surface) border border-(--grid) space-y-3 transition-all duration-300 hover:border-(--or)/50 hover:bg-(--elevated)">
+              <div class="font-mono text-xs font-bold text-(--or) flex items-center justify-between">
+                <span>{{ step.num }}</span>
+                <span class="w-6 h-0.5 bg-(--or) opacity-0 group-hover:opacity-100 transition-opacity"></span>
+              </div>
+              
+              <h3 class="text-xl font-bold text-(--ink) tracking-tight">
+                {{ step.title }}
+              </h3>
+
+              <p class="text-sm text-(--muted) leading-relaxed group-hover:text-(--ink) transition-colors">
+                {{ step.summary }}
+              </p>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Narrative Transition Hint -->
+      <div class="pt-8 text-center">
+        <a
+          href="#investigation"
+          (click)="scrollToSection('#investigation', $event)"
+          class="inline-flex items-center gap-2 font-mono text-xs text-(--muted) hover:text-(--or) transition-colors no-underline uppercase tracking-wider font-bold"
+        >
+          <span>THE INVESTIGATION TRAIL</span>
+          <span class="text-(--or)">&darr;</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Editorial Separator -->
+    <div class="border-t border-(--grid) relative">
+      <div class="absolute left-0 -top-px w-12 h-[2px] bg-(--or)"></div>
+    </div>
+
+    <!-- ======================================================================= -->
+    <!-- 04 — THE INVESTIGATION (FULL-WIDTH FORENSIC STORY)                      -->
+    <!-- ======================================================================= -->
+    <section id="investigation" class="min-h-[80vh] lg:min-h-[90vh] flex flex-col justify-between py-20 lg:py-32 scroll-mt-20">
+      <div class="space-y-12 my-auto">
+        <div class="font-mono text-xs font-bold tracking-widest text-(--or) uppercase">
+          04 // THE INVESTIGATION
+        </div>
+
+        <div class="space-y-3">
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-(--ink) tracking-tight">
+            A regression is not a guess.<br>
+            <span class="text-(--or)">It is a trail.</span>
+          </h2>
+          <p class="text-base sm:text-lg text-(--muted) max-w-3xl">
+            Select any investigation milestone to observe how runtime behavior resolves into causal proof.
+          </p>
+        </div>
+
+        <!-- 70/30 Full-Width Interactive Investigation Flow -->
+        <div class="grid grid-cols-12 gap-8 lg:gap-12 items-start pt-4">
+          
+          <!-- Left 70% (8 cols): 5-Step Trajectory Milestone Buttons -->
+          <div class="col-span-12 lg:col-span-8 space-y-3">
+            @for (step of investigationSteps; track step.num; let i = $index) {
+              <div
+                (click)="selectInvestigationStep(i)"
+                class="p-4 sm:p-5 rounded-xl border border-(--grid) transition-all duration-300 flex items-center justify-between cursor-pointer"
+                [class.bg-(--elevated)]="activeInvestigationIndex() === i"
+                [class.border-(--or)]="activeInvestigationIndex() === i"
+                [class.bg-(--surface)]="activeInvestigationIndex() !== i"
+              >
+                <div class="flex items-center gap-4">
+                  <span class="font-mono text-xs font-bold text-(--or)">{{ step.num }}</span>
+                  <strong class="text-base sm:text-lg text-(--ink)">{{ step.title }}</strong>
+                </div>
+                <span class="text-xs sm:text-sm text-(--muted) font-mono">{{ step.descriptor }}</span>
+              </div>
+            }
+          </div>
+
+          <!-- Right 30% (4 cols): Active Milestone Inspector Box -->
+          <div class="col-span-12 lg:col-span-4 p-6 sm:p-8 rounded-2xl bg-(--surface) border border-(--or)/60 font-mono space-y-4 shadow-lg">
+            <div class="flex items-center justify-between text-xs pb-3 border-b border-(--grid)">
+              <span class="text-(--or) font-bold">MILESTONE {{ investigationSteps[activeInvestigationIndex()].num }}</span>
+              <span class="text-(--muted) uppercase">{{ investigationSteps[activeInvestigationIndex()].title }}</span>
+            </div>
+
+            <h4 class="text-lg font-bold text-(--ink) font-sans">
+              {{ investigationSteps[activeInvestigationIndex()].descriptor }}
+            </h4>
+
+            <p class="text-xs sm:text-sm text-(--muted) leading-relaxed">
+              {{ investigationSteps[activeInvestigationIndex()].explanation }}
+            </p>
+
+            <div class="pt-2 text-[10px] text-(--or) flex items-center gap-1.5 font-bold">
+              <span>●</span>
+              <span>DETERMINISTIC VERIFICATION ACTIVE</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Narrative Transition Hint -->
+      <div class="pt-8 text-center">
+        <a
+          href="#developer"
+          (click)="scrollToSection('#developer', $event)"
+          class="inline-flex items-center gap-2 font-mono text-xs text-(--muted) hover:text-(--or) transition-colors no-underline uppercase tracking-wider font-bold"
+        >
+          <span>THE MIND BEHIND IT</span>
+          <span class="text-(--or)">&darr;</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Editorial Separator -->
+    <div class="border-t border-(--grid) relative">
+      <div class="absolute left-0 -top-px w-12 h-[2px] bg-(--or)"></div>
+    </div>
+
+    <!-- ======================================================================= -->
+    <!-- 04 / 05 — THE MIND BEHIND IT (REFINED DEVELOPER STORY)                  -->
+    <!-- ======================================================================= -->
+    <section id="developer" class="min-h-[75vh] lg:min-h-[85vh] flex flex-col justify-between py-20 lg:py-32 scroll-mt-20">
+      <div class="space-y-12 my-auto">
+        
+        <!-- Section Numeration -->
+        <div class="font-mono text-xs font-bold tracking-widest text-(--or) uppercase">
+          04 // THE MIND BEHIND IT
+        </div>
+
+        <div class="grid grid-cols-12 gap-8 lg:gap-16 items-center">
+          
+          <!-- Left 45% (5 cols): Native Profile Card with Behind Glow & Icon Pattern -->
+          <div class="col-span-12 lg:col-span-5 w-full">
+            <app-developer-profile-card
+              [name]="'Guruprasad Bhosale'"
+              [title]="'BUILDING THINGS THAT SHOULD PROBABLY EXIST.'"
+              [handle]="'guruprasad-bhosale'"
+              [avatarUrl]="'snf.jpg'"
+              [githubUrl]="'https://github.com/Guruprasad-Bhosale'"
+              [linkedinUrl]="'https://www.linkedin.com/in/guruprasad-bhosale'"
+            />
+          </div>
+
+          <!-- Right 55% (7 cols): Developer Title + Human Narrative + Quote Punctuation -->
+          <div class="col-span-12 lg:col-span-7 space-y-6">
+            
+            <!-- Developer Title (StrokeText Animation) -->
+            <div class="space-y-1">
+              <h2 class="w-full font-extrabold text-(--ink) tracking-tight leading-none">
+                <app-stroke-text
+                  text="I like making &#10;difficult things exist."
+                  strokeColor="var(--or)"
+                  fillColor="var(--ink)"
+                  [strokeWidth]="2.0"
+                  [drawDuration]="1.0"
+                  [fillDelay]="0.12"
+                  [stagger]="0.024"
+                  [lineHeight]="1.1"
+                  [letterSpacing]="-1.8"
+                  [wordSpacing]="4"
+                  ease="power2.out"
+                  trigger="scroll"
+                  fillMode="wipe"
+                  [fontSize]="84"
+                  [fontWeight]="900"
+                  align="left"
+                />
+              </h2>
+            </div>
+
+            <!-- Authentic / Gen-Z Description (Human, Curious, Confident) -->
+            <div class="text-base sm:text-lg lg:text-xl text-(--muted) leading-relaxed max-w-[660px] space-y-4">
+              <p>
+                Curious by default. Slightly obsessed once something gets interesting.
+              </p>
+              <p>
+                I build software, break things, rebuild them, and occasionally turn one small question into a much bigger project.
+              </p>
+              <p class="pt-1 text-(--ink) font-medium">
+                <strong class="text-(--or) font-bold">RETRACE</strong> happens to be one of those projects.
+              </p>
+            </div>
+
+            <!-- Personal Philosophy Quote (Final Visual Punctuation of Developer Content) -->
+            <div class="pt-6 border-t border-(--grid)/60 max-w-[660px] space-y-2">
+              <blockquote class="text-lg sm:text-xl lg:text-2xl font-bold text-(--ink) tracking-tight leading-snug">
+                &ldquo;An idiot in motion is better than a genius at rest.&rdquo;
+              </blockquote>
+              <div class="font-mono text-xs sm:text-sm text-(--muted) font-semibold flex items-center gap-2">
+                <span>&mdash;</span>
+                <span class="text-(--or) font-bold">me.</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Narrative Transition Hint to Final System Entry -->
+      <div class="pt-8 text-center">
+        <a
+          href="#cta"
+          (click)="scrollToSection('#cta', $event)"
+          class="inline-flex items-center gap-2 font-mono text-xs text-(--muted) hover:text-(--or) transition-colors no-underline uppercase tracking-wider font-bold"
+        >
+          <span>ENTER THE SYSTEM</span>
+          <span class="text-(--or)">&darr;</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- Editorial Separator -->
+    <div class="border-t border-(--grid) relative">
+      <div class="absolute left-0 -top-px w-12 h-[2px] bg-(--or)"></div>
+    </div>
+
+    <!-- ======================================================================= -->
+    <!-- 05 / 06 — ACCESS RETRACE & FOOTER (FULL WIDTH)                          -->
+    <!-- ======================================================================= -->
+    <section id="cta" class="min-h-[60vh] lg:min-h-[75vh] flex flex-col justify-between pt-20 lg:pt-32 pb-12 text-center scroll-mt-20">
+      <div class="space-y-8 my-auto">
+        <div class="font-mono text-xs font-bold tracking-widest text-(--or) uppercase">
+          05 // ACCESS RETRACE
+        </div>
+        
+        <div class="max-w-3xl mx-auto space-y-4">
+          <h2 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-(--ink) tracking-tight leading-[1.08]">
+            READY TO INVESTIGATE?
+          </h2>
+          
+          <p class="text-base sm:text-lg lg:text-xl text-(--muted) max-w-2xl mx-auto">
+            RETRACE turns a regression into a traceable chain of behavior, evidence and cause.
+          </p>
+        </div>
+
+        <!-- Primary Grand Action -->
+        <div class="pt-4 flex justify-center">
+          <button
+            type="button"
+            (click)="enterRetrace()"
+            class="btn-retrace text-sm sm:text-base py-4 px-10 flex items-center gap-3 shadow-lg shadow-orange-500/10 font-mono font-bold tracking-wider cursor-pointer"
+          >
+            <span>ENTER RETRACE</span>
+            <span class="text-lg font-bold">&rarr;</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Minimal Full-Width Editorial Footer -->
+      <footer class="pt-16 border-t border-(--grid) flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-(--muted)">
+        <div class="flex items-center gap-3">
+          <strong class="text-(--ink)">RETRACE.</strong>
+          <span>&bull;</span>
+          <span>Guruprasad Bhosale</span>
+        </div>
+
+        <div class="flex items-center gap-6">
+          <a
+            href="https://github.com/Guruprasad-Bhosale"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover:text-(--ink) no-underline transition-colors flex items-center gap-1 font-bold"
+          >
+            <span>GITHUB</span>
+            <span class="text-(--or)">&nearr;</span>
+          </a>
+          <a
+            href="https://www.linkedin.com/in/guruprasad-bhosale"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover:text-(--ink) no-underline transition-colors flex items-center gap-1 font-bold"
+          >
+            <span>LINKEDIN</span>
+            <span class="text-(--or)">&nearr;</span>
+          </a>
+          <span>&bull;</span>
+          <span>&copy; 2026</span>
+        </div>
+      </footer>
+    </section>
+
+  </main>
+</div>

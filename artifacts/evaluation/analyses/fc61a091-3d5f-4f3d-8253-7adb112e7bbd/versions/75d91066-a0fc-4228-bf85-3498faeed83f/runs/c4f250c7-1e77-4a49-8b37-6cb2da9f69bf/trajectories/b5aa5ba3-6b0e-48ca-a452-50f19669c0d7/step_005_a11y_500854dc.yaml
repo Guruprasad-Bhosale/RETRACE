@@ -1,0 +1,27 @@
+- banner:
+  - link "R RETRACE Store (v1.0.0)":
+    - /url: /
+  - textbox "Search products..."
+  - link "🛒 Cart 2":
+    - /url: /cart.html
+- main:
+  - heading "Featured Products" [level=1]
+  - paragraph: High quality developer hardware and accessories
+  - button "All"
+  - button "Laptops"
+  - button "Audio"
+  - button "Accessories"
+  - button "Displays"
+  - text: Staff Pick
+  - heading "Ergonomic Mechanical Keyboard" [level=3]
+  - paragraph: Tactile mechanical switches with RGB backlighting.
+  - text: $149.99 ⭐ 4.7 (40 in stock)
+  - button "Add to Cart"
+  - heading "Wireless Precision Mouse" [level=3]
+  - paragraph: Ergonomic multi-device Bluetooth mouse.
+  - text: $79.99 ⭐ 4.5 (80 in stock)
+  - button "Add to Cart"
+  - heading "USB-C Dual 4K Docking Station" [level=3]
+  - paragraph: 100W Power Delivery and dual display ports.
+  - text: $199.99 ⭐ 4.6 (30 in stock)
+  - button "Add to Cart"

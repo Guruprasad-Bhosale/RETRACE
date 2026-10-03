@@ -2,6 +2,7 @@
 
 import os
 from pathlib import Path
+from typing import Any
 
 import aiofiles
 
@@ -16,10 +17,29 @@ class LocalDiskArtifactStorage(ArtifactStorage):
         self.base_dir.mkdir(parents=True, exist_ok=True)
 
     def _resolve_path(self, key: str) -> Path:
-        # Sanitize key to prevent path traversal
-        clean_key = key.lstrip("/").replace("..", "_")
-        target = (self.base_dir / clean_key).resolve()
-        # On Windows, support paths > 260 characters via \\?\ extended-length path syntax
+        normalized_key = key.replace("\\", "/")
+        if normalized_key.startswith("file://"):
+            normalized_key = normalized_key[7:]
+            # On Windows, file:///C:/path or file://C:/path -> C:/path
+            if normalized_key.startswith("/") and len(normalized_key) > 2 and normalized_key[2] == ":":
+                normalized_key = normalized_key[1:]
+
+        p = Path(normalized_key)
+        if p.is_absolute():
+            target = p.resolve()
+        else:
+            if ".." in normalized_key.split("/"):
+                raise PermissionError(f"Path traversal detected for artifact key: {key}")
+            clean_key = normalized_key.lstrip("/")
+            parts = [part for part in clean_key.split("/") if part and part != "." and part != ".."]
+            target = self.base_dir.joinpath(*parts).resolve()
+
+        # Verify resolved path is strictly within base_dir
+        try:
+            target.relative_to(self.base_dir)
+        except ValueError as exc:
+            raise PermissionError(f"Path traversal detected for artifact key: {key}") from exc
+
         target_str = str(target)
         if target_str.startswith("\\\\?\\"):
             return Path(target_str)
@@ -54,3 +74,27 @@ class LocalDiskArtifactStorage(ArtifactStorage):
     async def exists(self, key: str) -> bool:
         target_path = self._resolve_path(key)
         return target_path.is_file()
+
+    async def check_health(self) -> dict[str, Any]:
+        """Perform storage readiness probe ensuring directory is writable."""
+        test_key = "_health_probe.tmp"
+        try:
+            test_path = self._resolve_path(test_key)
+            test_path.parent.mkdir(parents=True, exist_ok=True)
+            async with aiofiles.open(str(test_path), "wb") as f:
+                await f.write(b"health_check")
+            if test_path.is_file():
+                test_path.unlink()
+            return {
+                "status": "connected",
+                "healthy": True,
+                "backend": "local",
+                "path": str(self.base_dir),
+            }
+        except Exception as e:
+            return {
+                "status": "degraded",
+                "healthy": False,
+                "backend": "local",
+                "error": str(e),
+            }

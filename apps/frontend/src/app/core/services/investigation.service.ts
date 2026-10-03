@@ -114,6 +114,70 @@ export class InvestigationService {
     );
   }
 
+  getEvidenceGraph(id: string): Observable<import('../models/investigation.models').EvidenceGraph | null> {
+    return this.http.get<import('../models/investigation.models').EvidenceGraph>(`${this.baseUrl}/investigations/${id}/evidence-graph`).pipe(
+      catchError(() => of(null))
+    );
+  }
+
+  getInvestigationExplanation(id: string): Observable<import('../models/investigation.models').ForensicInvestigationExplanation | null> {
+    return this.http.get<import('../models/investigation.models').ForensicInvestigationExplanation>(`${this.baseUrl}/investigations/${id}/explanation`).pipe(
+      catchError(() => of(null))
+    );
+  }
+
+  replayInvestigation(id: string, analysisVersion: string = 'forensics-v1'): Observable<import('../models/investigation.models').ReplayResult | null> {
+    const params = new HttpParams().set('analysis_version', analysisVersion);
+    return this.http.post<import('../models/investigation.models').ReplayResult>(`${this.baseUrl}/investigations/${id}/replay`, {}, { params }).pipe(
+      catchError(() => of(null))
+    );
+  }
+
+  compareInvestigations(id: string, otherId: string): Observable<import('../models/investigation.models').InvestigationComparisonResult | null> {
+    return this.http.get<import('../models/investigation.models').InvestigationComparisonResult>(`${this.baseUrl}/investigations/${id}/compare/${otherId}`).pipe(
+      catchError(() => of(null))
+    );
+  }
+
+  startInvestigation(request: {
+    project_id: string;
+    analysis_id: string;
+    version_a: { base_url: string; repository_path?: string };
+    version_b: { base_url: string; repository_path?: string };
+  }): Observable<{ workflow_id: string; analysis_id: string; status: string; message: string } | null> {
+    return this.http.post<{ workflow_id: string; analysis_id: string; status: string; message: string }>(
+      `${this.baseUrl}/investigations/start`,
+      request
+    ).pipe(
+      catchError((err) => {
+        this.error.set(err.message || 'Failed to start investigation workflow.');
+        return of(null);
+      })
+    );
+  }
+
+  getWorkflowStatus(workflowId: string): Observable<{
+    workflow_id: string;
+    analysis_id: string;
+    status: string;
+    current_phase: string;
+    history: Array<{ node_name: string; status: string; duration_ms?: number }>;
+    events_count: number;
+    error_message?: string | null;
+  } | null> {
+    return this.http.get<{
+      workflow_id: string;
+      analysis_id: string;
+      status: string;
+      current_phase: string;
+      history: Array<{ node_name: string; status: string; duration_ms?: number }>;
+      events_count: number;
+      error_message?: string | null;
+    }>(`${this.baseUrl}/investigations/workflow/${workflowId}/status`).pipe(
+      catchError(() => of(null))
+    );
+  }
+
   setStatusFilter(status: string): void {
     this.statusFilter.set(status);
   }
@@ -130,3 +194,4 @@ export class InvestigationService {
     this.selectedTab.set(tab);
   }
 }
+

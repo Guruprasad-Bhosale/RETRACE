@@ -1,0 +1,26 @@
+[
+  {
+    "duration_ms": 2327.431199984858,
+    "end_time": 175808.6637169,
+    "failure_reason": "net::ERR_CONNECTION_REFUSED",
+    "method": "GET",
+    "request_body": null,
+    "request_headers": {
+      "accept-language": "en-US",
+      "sec-ch-ua": "\"Not=A?Brand\";v=\"99\", \"HeadlessChrome\";v=\"151\", \"Chromium\";v=\"151\"",
+      "sec-ch-ua-mobile": "?0",
+      "sec-ch-ua-platform": "\"Windows\"",
+      "upgrade-insecure-requests": "1",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36"
+    },
+    "request_id": "2544453822336",
+    "resource_type": "document",
+    "response_body": null,
+    "response_headers": {},
+    "start_time": 175806.3362857,
+    "status_code": null,
+    "status_text": null,
+    "step_index": 1,
+    "url": "http://localhost:8002/"
+  }
+]

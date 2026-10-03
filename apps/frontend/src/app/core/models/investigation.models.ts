@@ -370,3 +370,197 @@ export interface InvestigationResult {
   status: InvestigationStatus;
   created_at: string;
 }
+
+// -----------------------------------------------------------------------------
+// Phase 18: Forensic Intelligence & Evidence Graph 2.0 Models
+// -----------------------------------------------------------------------------
+
+export type ForensicEvidenceType =
+  | 'dom_observation'
+  | 'network_observation'
+  | 'console_observation'
+  | 'visual_diff'
+  | 'accessibility_diff'
+  | 'performance_diff'
+  | 'state_diff'
+  | 'reproduction'
+  | 'git_diff'
+  | 'ast_diff'
+  | 'source_reference'
+  | 'test_result';
+
+export type EdgeType =
+  | 'SUPPORTS'
+  | 'CONTRADICTS'
+  | 'CAUSED_BY'
+  | 'CORRELATES_WITH'
+  | 'REPRODUCES'
+  | 'DERIVED_FROM'
+  | 'LOCATED_AT'
+  | 'INVALIDATES';
+
+export type HypothesisStatus =
+  | 'PROPOSED'
+  | 'SUPPORTED'
+  | 'WEAKENED'
+  | 'ELIMINATED'
+  | 'CONFIRMED'
+  | 'UNRESOLVED';
+
+export type HypothesisCategory =
+  | 'CALCULATION_LOGIC'
+  | 'DOM_RENDER_LOGIC'
+  | 'API_CONTRACT'
+  | 'TIMING_RACE_CONDITION'
+  | 'STYLING_FORMATTING'
+  | 'STATE_PERSISTENCE'
+  | 'NAVIGATION_ROUTING'
+  | 'UNKNOWN';
+
+export type ConfidenceLevel = 'HIGH' | 'MEDIUM' | 'LOW' | 'INSUFFICIENT';
+
+export interface ForensicEvidenceItem {
+  id: string;
+  investigation_id: string;
+  evidence_type: ForensicEvidenceType;
+  source: string;
+  observation: string;
+  payload?: Record<string, unknown>;
+  artifact_reference?: ArtifactReference | null;
+  confidence_weight: number;
+  supports: string[];
+  contradicts: string[];
+  is_untrusted_input: boolean;
+  timestamp: string;
+}
+
+export interface EvidenceGraphNode {
+  node_id: string;
+  node_type: string;
+  title: string;
+  status: string;
+  evidence_item_ids: string[];
+  confidence_score: number;
+  metadata?: Record<string, unknown>;
+}
+
+export interface EvidenceGraphEdge {
+  edge_id: string;
+  source_node_id: string;
+  target_node_id: string;
+  relationship: EdgeType;
+  weight: number;
+  explanation: string;
+}
+
+export interface EvidenceGraph {
+  graph_id: string;
+  investigation_id: string;
+  nodes: EvidenceGraphNode[];
+  edges: EvidenceGraphEdge[];
+  deterministic_hash: string;
+  created_at: string;
+}
+
+export interface ForensicHypothesis {
+  hypothesis_id: string;
+  title: string;
+  description: string;
+  category: HypothesisCategory;
+  status: HypothesisStatus;
+  supporting_evidence_ids: string[];
+  contradicting_evidence_ids: string[];
+  elimination_reason?: string | null;
+  score: number;
+}
+
+export interface ConfidenceAssessment {
+  level: ConfidenceLevel;
+  score: number;
+  supporting_count: number;
+  contradicting_count: number;
+  unresolved_count: number;
+  rationale: string;
+}
+
+export interface FalsificationCondition {
+  condition_id: string;
+  statement: string;
+  testable_verification: string;
+  potential_confounders: string[];
+}
+
+export interface AlternativeExplanation {
+  alternative_id: string;
+  title: string;
+  category: HypothesisCategory;
+  status: HypothesisStatus;
+  elimination_reason: string;
+  evidence_references: string[];
+}
+
+export interface ForensicInvestigationExplanation {
+  investigation_id: string;
+  root_cause_summary: string;
+  root_cause_status: string;
+  primary_hypothesis: ForensicHypothesis;
+  eliminated_alternatives: AlternativeExplanation[];
+  evidence_graph: EvidenceGraph;
+  confidence: ConfidenceAssessment;
+  falsification: FalsificationCondition;
+  provenance_chain: string[];
+  evidence_graph_available: boolean;
+  created_at: string;
+}
+
+export interface InvestigationReplaySnapshot {
+  investigation_id: string;
+  schema_version: string;
+  analysis_version: string;
+  snapshot_hash: string;
+  evidence_items: ForensicEvidenceItem[];
+  observations: Record<string, unknown>[];
+  diffs: Record<string, unknown>[];
+  hypotheses: ForensicHypothesis[];
+  source_references: Record<string, unknown>[];
+  reproduction_results: Record<string, unknown>[];
+  deterministic_config: Record<string, unknown>;
+  created_at: string;
+}
+
+export interface ReplayResult {
+  replay_id: string;
+  investigation_id: string;
+  snapshot_hash: string;
+  analysis_version: string;
+  graph_hash: string;
+  hypothesis_hash: string;
+  explanation_hash: string;
+  status: string;
+  is_reproducible: boolean;
+  divergence_details: string[];
+  replayed_explanation?: ForensicInvestigationExplanation | null;
+  created_at: string;
+}
+
+export interface GraphDiffItem {
+  diff_type: string;
+  node_or_edge_id: string;
+  details: string;
+  severity: string;
+}
+
+export interface InvestigationComparisonResult {
+  investigation_a_id: string;
+  investigation_b_id: string;
+  shared_evidence_count: number;
+  unique_evidence_a_count: number;
+  unique_evidence_b_count: number;
+  root_cause_matches: boolean;
+  hypothesis_matches: boolean;
+  graph_diff: GraphDiffItem[];
+  explanation_diff: string[];
+  created_at: string;
+}
+
+

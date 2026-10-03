@@ -13,6 +13,14 @@ from pydantic import BaseModel
 from apps.worker.investigation.models import InvestigationResult
 from apps.worker.orchestration.models import InvestigationRequest
 from apps.worker.orchestration.runner import default_workflow_runner
+from packages.forensics.engine import ForensicIntelligenceEngine
+from packages.forensics.models import (
+    EvidenceGraph,
+    ForensicInvestigationExplanation,
+    InvestigationComparisonResult,
+    ReplayResult,
+)
+from packages.forensics.replay import InvestigationReplayEngine
 
 
 class InvestigationSummaryResponse(BaseModel):
@@ -43,10 +51,12 @@ def clear_investigations() -> None:
     _INVESTIGATION_REGISTRY.clear()
 
 
-def seed_sample_investigations() -> None:
+def seed_sample_investigations(force: bool = False) -> None:
     """Seed sample investigation records for development and exploration."""
-    if _INVESTIGATION_REGISTRY:
+    if not force and len(_INVESTIGATION_REGISTRY) > 0:
         return
+
+
 
     from uuid import uuid4
 
@@ -301,6 +311,96 @@ test.describe('Commerce Cart Button Regression Test', () => {
     )
     _INVESTIGATION_REGISTRY["inv_comm_cart_01"] = inv1
 
+    # 2. Investigation 2: Promo Discount Modal Regression
+    clf2 = RegressionClassification(
+        classification_id="clf_comm_modal_02",
+        difference_id="diff_comm_modal_02",
+        status=ClassificationStatus.REGRESSION_CANDIDATE,
+        category=RegressionCategory.FUNCTIONAL,
+        rule_id="RULE-COMMERCE-PROMO-MODAL-UNRESPONSIVE",
+        reason="Promo discount modal submit button throws unhandled exception on click.",
+        evidence=ClassificationEvidence(
+            difference_id="diff_comm_modal_02",
+            canonical_subject="button#apply-promo",
+            details={"selector": "#apply-promo", "error": "TypeError: promo.apply is not a function"},
+        ),
+    )
+    repro2 = ReproductionResult(
+        reproduction_id="repro_comm_modal_02",
+        classification_id="clf_comm_modal_02",
+        difference_id="diff_comm_modal_02",
+        rule_id="RULE-COMMERCE-PROMO-MODAL-UNRESPONSIVE",
+        category="FUNCTIONAL",
+        status=ReproductionStatus.REPRODUCED,
+        strategy=ReproductionStrategy.DIRECT_REPLAY,
+        path=ReproductionPath(
+            path_id="path_repro_02",
+            trajectory_id=uuid4(),
+            classification_id="clf_comm_modal_02",
+            difference_id="diff_comm_modal_02",
+            seed_url="http://127.0.0.1:3000/cart",
+            path_signature="step=0|type=NAVIGATE->step=1|type=CLICK",
+        ),
+    )
+
+    loc2 = SourceLocation(
+        file_path="lab/applications/commerce/v2/static/js/promo.js",
+        start_line=55,
+        end_line=62,
+        symbol_name="applyPromoCode",
+    )
+    cmt2 = CommitMetadata(
+        commit_hash="deadbeef99",
+        author_name="Frontend Team",
+        author_email="frontend@retrace.local",
+        message="Refactor promo application handler",
+    )
+    attr2 = RootCauseAttribution(
+        attribution_id="attr_comm_modal_02",
+        source_location=loc2,
+        relationship_type=AttributionRelationshipType.DIRECTLY_CHANGED,
+        commit=cmt2,
+        explanation="Promo discount handler signature modified improperly",
+    )
+    rc2 = RootCauseResult(
+        root_cause_id="rc_comm_modal_02",
+        classification_id="clf_comm_modal_02",
+        difference_id="diff_comm_modal_02",
+        category="FUNCTIONAL",
+        status=RootCauseStatus.LOCATED,
+        primary_attribution=attr2,
+        attributions=[attr2],
+        provenance=RootCauseProvenance(classification_id="clf_comm_modal_02", difference_id="diff_comm_modal_02"),
+    )
+    report2 = EvidenceReport(
+        report_id="rep_comm_modal_02",
+        investigation_id="inv_comm_modal_02",
+        regression_id="clf_comm_modal_02",
+        title="Promo Discount Modal Regression",
+        status=ReportStatus.COMPLETE,
+        summary="Promo modal throws unhandled exception on click.",
+        sections=[],
+        evidence_chain=EvidenceChain(chain_id="chain_modal_02", nodes=[]),
+
+        markdown_content="# Promo Discount Modal Regression",
+        json_content={"investigation_id": "inv_comm_modal_02", "status": "COMPLETE", "category": "FUNCTIONAL"},
+        provenance=ReportProvenance(classification_id="clf_comm_modal_02", difference_id="diff_comm_modal_02"),
+    )
+    inv2 = InvestigationResult(
+        investigation_id="inv_comm_modal_02",
+        analysis_id=analysis_id,
+        regression_id="clf_comm_modal_02",
+        classification=clf2,
+        reproduction=repro2,
+        root_cause=rc2,
+        report=report2,
+        status="COMPLETED",
+        provenance=InvestigationProvenance(analysis_id=analysis_id, classification_id="clf_comm_modal_02", difference_id="diff_comm_modal_02"),
+    )
+    _INVESTIGATION_REGISTRY["inv_comm_modal_02"] = inv2
+
+
+
 
 @router.get("", response_model=list[InvestigationSummaryResponse])
 async def list_investigations(
@@ -342,11 +442,16 @@ async def list_investigations(
     return results
 
 
+def _get_investigation_entity(investigation_id: str) -> InvestigationResult | None:
+    if investigation_id not in _INVESTIGATION_REGISTRY and investigation_id in ("inv_comm_cart_01", "inv_comm_modal_02"):
+        seed_sample_investigations(force=True)
+    return _INVESTIGATION_REGISTRY.get(investigation_id)
+
+
 @router.get("/{investigation_id}", response_model=dict[str, Any])
 async def get_investigation(investigation_id: str) -> dict[str, Any]:
     """Get complete investigation package details by ID."""
-    seed_sample_investigations()
-    inv = _INVESTIGATION_REGISTRY.get(investigation_id)
+    inv = _get_investigation_entity(investigation_id)
     if not inv:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -355,11 +460,11 @@ async def get_investigation(investigation_id: str) -> dict[str, Any]:
     return inv.model_dump(mode="json")
 
 
+
 @router.get("/{investigation_id}/test")
 async def get_investigation_test(investigation_id: str) -> Response:
     """Retrieve the synthesized Playwright TypeScript test file for an investigation."""
-    seed_sample_investigations()
-    inv = _INVESTIGATION_REGISTRY.get(investigation_id)
+    inv = _get_investigation_entity(investigation_id)
     if not inv or not inv.generated_test:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -378,8 +483,7 @@ async def get_investigation_report(
     format: str = Query(default="markdown", pattern="^(markdown|json)$"),
 ) -> Response:
     """Retrieve the evidence investigation report in Markdown or JSON format."""
-    seed_sample_investigations()
-    inv = _INVESTIGATION_REGISTRY.get(investigation_id)
+    inv = _get_investigation_entity(investigation_id)
     if not inv:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -399,7 +503,66 @@ async def get_investigation_report(
         )
 
 
+@router.get("/{investigation_id}/evidence-graph", response_model=EvidenceGraph)
+async def get_investigation_evidence_graph(investigation_id: str) -> EvidenceGraph:
+    """Retrieve the deterministic Forensic Evidence Graph (DAG) for an investigation."""
+    inv = _get_investigation_entity(investigation_id)
+    if not inv:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Investigation with ID '{investigation_id}' not found",
+        )
+    explanation = ForensicIntelligenceEngine.explain_investigation(inv)
+    return explanation.evidence_graph
+
+
+@router.get("/{investigation_id}/explanation", response_model=ForensicInvestigationExplanation)
+async def get_investigation_explanation(investigation_id: str) -> ForensicInvestigationExplanation:
+    """Retrieve the complete Forensic Investigation Explanation package with hypotheses and falsification."""
+    inv = _get_investigation_entity(investigation_id)
+    if not inv:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Investigation with ID '{investigation_id}' not found",
+        )
+    return ForensicIntelligenceEngine.explain_investigation(inv)
+
+
+@router.post("/{investigation_id}/replay", response_model=ReplayResult)
+async def replay_investigation(
+    investigation_id: str,
+    analysis_version: str = Query("forensics-v1", description="Forensics engine version for replay verification"),
+) -> ReplayResult:
+    """Execute deterministic offline replay against captured investigation evidence without browser execution."""
+    inv = _get_investigation_entity(investigation_id)
+    if not inv:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Investigation with ID '{investigation_id}' not found",
+        )
+    return InvestigationReplayEngine.replay_investigation(inv, analysis_version=analysis_version)
+
+
+@router.get("/{investigation_id}/compare/{other_id}", response_model=InvestigationComparisonResult)
+async def compare_investigations(investigation_id: str, other_id: str) -> InvestigationComparisonResult:
+    """Compare two investigations across shared/unique evidence, graph diffs, and root-cause conclusions."""
+    inv_a = _get_investigation_entity(investigation_id)
+    if not inv_a:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Investigation with ID '{investigation_id}' not found",
+        )
+    inv_b = _get_investigation_entity(other_id)
+    if not inv_b:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Comparison target investigation with ID '{other_id}' not found",
+        )
+    return InvestigationReplayEngine.compare_investigations(inv_a, inv_b)
+
+
 @router.post("/start", response_model=dict[str, Any], status_code=status.HTTP_202_ACCEPTED)
+
 async def start_investigation_workflow(request: InvestigationRequest) -> dict[str, Any]:
     """Start an asynchronous autonomous investigation workflow using LangGraph orchestration."""
     workflow_id = default_workflow_runner.start_background(request)

@@ -121,4 +121,27 @@ describe('InvestigationService', () => {
     const req = httpMock.expectOne('http://localhost:8000/api/v1/investigations');
     req.error(new ProgressEvent('Network error'), { status: 500, statusText: 'Server Error' });
   });
+
+  it('should handle 503 Service Unavailable and update error signal gracefully', () => {
+    service.loadInvestigations().subscribe((items) => {
+      expect(items.length).toBe(0);
+      expect(service.error()).toContain('503');
+      expect(service.isLoading()).toBe(false);
+    });
+
+    const req = httpMock.expectOne('http://localhost:8000/api/v1/investigations');
+    req.flush({ detail: 'Service Unavailable: database pool exhausted' }, { status: 503, statusText: 'Service Unavailable' });
+  });
+
+  it('should handle 404 Not Found when loading investigation detail', () => {
+    service.loadInvestigationById('nonexistent_id').subscribe((result) => {
+      expect(result).toBeNull();
+      expect(service.error()).toBeTruthy();
+      expect(service.selectedInvestigation()).toBeNull();
+      expect(service.isLoading()).toBe(false);
+    });
+
+    const req = httpMock.expectOne('http://localhost:8000/api/v1/investigations/nonexistent_id');
+    req.flush({ detail: 'Investigation not found' }, { status: 404, statusText: 'Not Found' });
+  });
 });

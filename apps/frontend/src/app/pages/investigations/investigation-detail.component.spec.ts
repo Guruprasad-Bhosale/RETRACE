@@ -153,21 +153,21 @@ describe('InvestigationDetailComponent', () => {
     const el = fixture.nativeElement as HTMLElement;
     expect(el.textContent).toContain('inv_cart_01');
     expect(el.textContent).toContain('FUNCTIONAL');
-    expect(el.textContent).toContain('Overview');
-    expect(el.textContent).toContain('Reproduction');
-    expect(el.textContent).toContain('Source & Root Cause');
-    expect(el.textContent).toContain('Playwright Test');
-    expect(el.textContent).toContain('Evidence Report');
+    expect(el.textContent).toContain('Evidence Graph');
+    expect(el.textContent).toContain('Hypotheses & Falsification');
+    expect(el.textContent).toContain('Root Cause & Diff');
+    expect(el.textContent).toContain('Reproduction & Test');
+    expect(el.textContent).toContain('Replay & Verification');
   });
 
-  it('should switch tabs when clicked', () => {
+  it('should switch tabs when setTab is called', () => {
     service.selectedInvestigation.set(mockInvestigation);
     fixture.detectChanges();
 
-    component.activeTab.set('reproduction');
+    component.setTab('reproduction');
     expect(component.activeTab()).toBe('reproduction');
 
-    component.activeTab.set('source-diff');
+    component.setTab('source-diff');
     expect(component.activeTab()).toBe('source-diff');
   });
 
@@ -179,5 +179,11 @@ describe('InvestigationDetailComponent', () => {
     const el = fixture.nativeElement as HTMLElement;
     expect(el.textContent).toContain('Unable to load investigation');
     expect(el.textContent).toContain('Investigation not found');
+  });
+
+  it('should copy investigation id on action trigger', () => {
+    component.investigationId.set('inv_cart_01');
+    component.copyInvestigationId();
+    expect(component.idCopied()).toBe(true);
   });
 });

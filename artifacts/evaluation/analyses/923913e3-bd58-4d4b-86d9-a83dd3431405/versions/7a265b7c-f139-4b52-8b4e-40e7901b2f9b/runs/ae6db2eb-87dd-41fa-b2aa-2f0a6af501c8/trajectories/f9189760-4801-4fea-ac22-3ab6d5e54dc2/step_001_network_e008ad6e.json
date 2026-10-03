@@ -1,0 +1,200 @@
+[
+  {
+    "duration_ms": 2.3394000018015504,
+    "end_time": 175421.4996987,
+    "failure_reason": null,
+    "method": "GET",
+    "request_body": null,
+    "request_headers": {
+      "accept-language": "en-US",
+      "sec-ch-ua": "\"Not=A?Brand\";v=\"99\", \"HeadlessChrome\";v=\"151\", \"Chromium\";v=\"151\"",
+      "sec-ch-ua-mobile": "?0",
+      "sec-ch-ua-platform": "\"Windows\"",
+      "upgrade-insecure-requests": "1",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36"
+    },
+    "request_id": "2834171047248",
+    "resource_type": "document",
+    "response_body": null,
+    "response_headers": {
+      "accept-ranges": "bytes",
+      "content-length": "3133",
+      "content-type": "text/html; charset=utf-8",
+      "date": "Sat, 03 Oct 2026 08:30:35 GMT",
+      "etag": "\"d08b1b203f443a66d70b8c22da9bbfd1\"",
+      "last-modified": "Mon, 14 Sep 2026 16:59:26 GMT",
+      "server": "uvicorn"
+    },
+    "start_time": 175421.4973593,
+    "status_code": 200,
+    "status_text": "OK",
+    "step_index": 1,
+    "url": "http://127.0.0.1:53772/"
+  },
+  {
+    "duration_ms": 3.87000001501292,
+    "end_time": 175421.50739,
+    "failure_reason": null,
+    "method": "GET",
+    "request_body": null,
+    "request_headers": {
+      "accept-language": "en-US",
+      "referer": "http://127.0.0.1:53772/",
+      "sec-ch-ua": "\"Not=A?Brand\";v=\"99\", \"HeadlessChrome\";v=\"151\", \"Chromium\";v=\"151\"",
+      "sec-ch-ua-mobile": "?0",
+      "sec-ch-ua-platform": "\"Windows\"",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36"
+    },
+    "request_id": "2834173987680",
+    "resource_type": "script",
+    "response_body": null,
+    "response_headers": {
+      "accept-ranges": "bytes",
+      "content-length": "9929",
+      "content-type": "text/javascript; charset=utf-8",
+      "date": "Sat, 03 Oct 2026 08:30:35 GMT",
+      "etag": "\"0223154d03c5bab35862f18cdcbd4a18\"",
+      "last-modified": "Mon, 14 Sep 2026 16:59:58 GMT",
+      "server": "uvicorn"
+    },
+    "start_time": 175421.50352,
+    "status_code": 200,
+    "status_text": "OK",
+    "step_index": 1,
+    "url": "http://127.0.0.1:53772/static/app.js"
+  },
+  {
+    "duration_ms": 155.2697999868542,
+    "end_time": 175421.6585763,
+    "failure_reason": null,
+    "method": "GET",
+    "request_body": null,
+    "request_headers": {
+      "accept-language": "en-US",
+      "referer": "http://127.0.0.1:53772/",
+      "sec-ch-ua": "\"Not=A?Brand\";v=\"99\", \"HeadlessChrome\";v=\"151\", \"Chromium\";v=\"151\"",
+      "sec-ch-ua-mobile": "?0",
+      "sec-ch-ua-platform": "\"Windows\"",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36"
+    },
+    "request_id": "2834173985520",
+    "resource_type": "script",
+    "response_body": null,
+    "response_headers": {
+      "age": "25",
+      "cache-control": "max-age=14400",
+      "cf-cache-status": "HIT",
+      "cf-ray": "a44a95f38a2d066f-BOM",
+      "date": "Sat, 03 Oct 2026 08:30:36 GMT",
+      "location": "/3.4.17",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=YnK2KBYT5h%2FfQcnZo6o3OkWgdID2DkcsVxbRWgbJAWuZ0o50DChkGZqrJFmVfVsGu2R0We9q%2B4Kd98aChYKqBWlQmsvqgIqmjVUslhpSguhUsEnnjG0%2Bs1j3ThvoyP6ACN0Csfg%3D\"}]}",
+      "server": "cloudflare",
+      "strict-transport-security": "max-age=63072000",
+      "x-vercel-cache": "MISS",
+      "x-vercel-id": "bom1::iad1::d7dwj-1791016210729-8adc1a103dc2"
+    },
+    "start_time": 175421.5033065,
+    "status_code": 302,
+    "status_text": "",
+    "step_index": 1,
+    "url": "https://cdn.tailwindcss.com/"
+  },
+  {
+    "duration_ms": 218.51259999675676,
+    "end_time": 175421.8773734,
+    "failure_reason": null,
+    "method": "GET",
+    "request_body": null,
+    "request_headers": {
+      "accept-language": "en-US",
+      "referer": "http://127.0.0.1:53772/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36"
+    },
+    "request_id": "2834173991232",
+    "resource_type": "script",
+    "response_body": null,
+    "response_headers": {
+      "age": "2101544",
+      "cache-control": "max-age=31536000",
+      "cf-cache-status": "HIT",
+      "cf-ray": "a44a95f39a60066f-BOM",
+      "content-encoding": "br",
+      "content-type": "text/javascript",
+      "date": "Sat, 03 Oct 2026 08:30:36 GMT",
+      "last-modified": "Wed, 30 Sep 2026 02:19:36 GMT",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=vpK8uCCaRq3P7beI0VMCJbmuPOQuQQbOYBKd5D7O8FK8dHDP%2BOiixzm%2Fj3vwohwByYUbK7bcq9ZOH5JPosmHlDfGzt8BkGb7%2FUEgWVzswL8yK5pCjdow90IBXQJIz93R65yinpU%3D\"}]}",
+      "server": "cloudflare",
+      "strict-transport-security": "max-age=63072000",
+      "vary": "accept-encoding",
+      "x-vercel-cache": "MISS",
+      "x-vercel-id": "bom1::iad1::qmn97-1788914691008-e52f477f8295"
+    },
+    "start_time": 175421.6588608,
+    "status_code": 200,
+    "status_text": "",
+    "step_index": 1,
+    "url": "https://cdn.tailwindcss.com/3.4.17"
+  },
+  {
+    "duration_ms": 2.848400006769225,
+    "end_time": 175421.9894888,
+    "failure_reason": null,
+    "method": "GET",
+    "request_body": null,
+    "request_headers": {
+      "accept-language": "en-US",
+      "content-type": "application/json",
+      "referer": "http://127.0.0.1:53772/",
+      "sec-ch-ua": "\"Not=A?Brand\";v=\"99\", \"HeadlessChrome\";v=\"151\", \"Chromium\";v=\"151\"",
+      "sec-ch-ua-mobile": "?0",
+      "sec-ch-ua-platform": "\"Windows\"",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36"
+    },
+    "request_id": "2834173994688",
+    "resource_type": "fetch",
+    "response_body": null,
+    "response_headers": {
+      "content-length": "221",
+      "content-type": "application/json",
+      "date": "Sat, 03 Oct 2026 08:30:35 GMT",
+      "server": "uvicorn"
+    },
+    "start_time": 175421.9866404,
+    "status_code": 200,
+    "status_text": "OK",
+    "step_index": 1,
+    "url": "http://127.0.0.1:53772/api/cart"
+  },
+  {
+    "duration_ms": 3.847300016786903,
+    "end_time": 175421.9909007,
+    "failure_reason": null,
+    "method": "GET",
+    "request_body": null,
+    "request_headers": {
+      "accept-language": "en-US",
+      "content-type": "application/json",
+      "referer": "http://127.0.0.1:53772/",
+      "sec-ch-ua": "\"Not=A?Brand\";v=\"99\", \"HeadlessChrome\";v=\"151\", \"Chromium\";v=\"151\"",
+      "sec-ch-ua-mobile": "?0",
+      "sec-ch-ua-platform": "\"Windows\"",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36"
+    },
+    "request_id": "2834173995792",
+    "resource_type": "fetch",
+    "response_body": null,
+    "response_headers": {
+      "content-length": "1566",
+      "content-type": "application/json",
+      "date": "Sat, 03 Oct 2026 08:30:35 GMT",
+      "server": "uvicorn"
+    },
+    "start_time": 175421.9870534,
+    "status_code": 200,
+    "status_text": "OK",
+    "step_index": 1,
+    "url": "http://127.0.0.1:53772/api/products?"
+  }
+]

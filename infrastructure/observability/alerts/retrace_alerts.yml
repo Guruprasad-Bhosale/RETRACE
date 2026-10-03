@@ -1,0 +1,62 @@
+groups:
+  - name: retrace_operational_alerts
+    rules:
+      - alert: HighApiErrorRate
+        expr: sum(rate(retrace_http_errors_total[5m])) / sum(rate(retrace_http_requests_total[5m])) > 0.05
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High API HTTP 4xx/5xx error rate (>5%)"
+          description: "API is returning over 5% error responses over the last 5 minutes."
+          runbook_url: "docs/operations/runbooks.md#high-api-error-rate"
+
+      - alert: HighApiLatency
+        expr: histogram_quantile(0.95, sum(rate(retrace_http_request_duration_seconds_bucket[5m])) by (le)) > 2.0
+        for: 3m
+        labels:
+          severity: warning
+        annotations:
+          summary: "API p95 latency exceeded 2.0s"
+          description: "95th percentile HTTP request latency is currently higher than 2.0 seconds."
+          runbook_url: "docs/operations/runbooks.md#high-api-latency"
+
+      - alert: WorkerFailureSpike
+        expr: sum(rate(retrace_worker_jobs_failed_total[5m])) > 0.2
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Worker job failure rate elevated"
+          description: "Analysis workers are failing jobs at an elevated rate (>0.2 failures/sec)."
+          runbook_url: "docs/operations/runbooks.md#worker-job-failures"
+
+      - alert: RedisQueueBacklog
+        expr: retrace_queue_depth > 50
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Redis job stream backlog accumulating"
+          description: "Redis stream pending jobs count exceeded 50 for over 5 minutes."
+          runbook_url: "docs/operations/runbooks.md#queue-backlog"
+
+      - alert: DatabaseConnectivityDegraded
+        expr: retrace_http_errors_total{error_type="DatabaseError"} > 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Database connection errors detected"
+          description: "FastAPI is failing to query or connect to Amazon RDS PostgreSQL."
+          runbook_url: "docs/operations/runbooks.md#database-connectivity-failure"
+
+      - alert: RedisConnectivityDegraded
+        expr: retrace_queue_failures_total > 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Redis queue delivery errors detected"
+          description: "Unable to write or read stream messages from Redis / ElastiCache."
+          runbook_url: "docs/operations/runbooks.md#redis-connectivity-failure"

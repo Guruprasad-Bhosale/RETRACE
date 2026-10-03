@@ -1,0 +1,83 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": { "h": 8, "w": 6, "x": 0, "y": 0 },
+      "id": 1,
+      "title": "ECS API CPU & Memory",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "container_cpu_usage_seconds_total{container_name=\"retrace-api\"}",
+          "legendFormat": "API CPU",
+          "refId": "A"
+        },
+        {
+          "expr": "container_memory_working_set_bytes{container_name=\"retrace-api\"}",
+          "legendFormat": "API Memory",
+          "refId": "B"
+        }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 8, "w": 6, "x": 6, "y": 0 },
+      "id": 2,
+      "title": "ECS Worker CPU & Memory",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "container_cpu_usage_seconds_total{container_name=\"retrace-worker\"}",
+          "legendFormat": "Worker CPU",
+          "refId": "A"
+        },
+        {
+          "expr": "container_memory_working_set_bytes{container_name=\"retrace-worker\"}",
+          "legendFormat": "Worker Memory",
+          "refId": "B"
+        }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 8, "w": 6, "x": 12, "y": 0 },
+      "id": 3,
+      "title": "RDS PostgreSQL Connections",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "pg_stat_activity_count",
+          "legendFormat": "Active Connections",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 8, "w": 6, "x": 18, "y": 0 },
+      "id": 4,
+      "title": "Redis Memory Usage",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "redis_memory_used_bytes",
+          "legendFormat": "Used Bytes",
+          "refId": "A"
+        }
+      ]
+    }
+  ],
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": ["retrace", "infrastructure", "ecs", "rds"],
+  "time": { "from": "now-6h", "to": "now" },
+  "title": "RETRACE — Cloud Infrastructure & Resource Budgets",
+  "uid": "retrace-infrastructure"
+}

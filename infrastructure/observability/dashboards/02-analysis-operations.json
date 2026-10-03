@@ -1,0 +1,87 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": { "h": 8, "w": 8, "x": 0, "y": 0 },
+      "id": 1,
+      "title": "Analysis Phase Durations (p95)",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum(rate(retrace_analysis_duration_seconds_bucket[5m])) by (le, phase))",
+          "legendFormat": "{{phase}} p95",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 8, "w": 8, "x": 8, "y": 0 },
+      "id": 2,
+      "title": "Browser Action Durations",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum(rate(retrace_browser_duration_seconds_bucket[5m])) by (le, action_type))",
+          "legendFormat": "{{action_type}}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 8, "w": 8, "x": 16, "y": 0 },
+      "id": 3,
+      "title": "Browser Session Failures",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum(rate(retrace_browser_failures_total[5m])) by (failure_type)",
+          "legendFormat": "{{failure_type}}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
+      "id": 4,
+      "title": "Artifact Ingestion Rate (Created vs Bytes)",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum(rate(retrace_artifacts_created_total[5m])) by (artifact_type)",
+          "legendFormat": "{{artifact_type}} count/s",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 },
+      "id": 5,
+      "title": "Artifact Storage Byte Throughput",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum(rate(retrace_artifacts_bytes_total[5m])) by (artifact_type)",
+          "legendFormat": "{{artifact_type}} bytes/s",
+          "refId": "A"
+        }
+      ]
+    }
+  ],
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": ["retrace", "operations", "analysis"],
+  "time": { "from": "now-6h", "to": "now" },
+  "title": "RETRACE — Analysis Operations & Browser Pipeline",
+  "uid": "retrace-analysis-ops"
+}

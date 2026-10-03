@@ -1,0 +1,67 @@
+/* RETRACE PUBLIC LANDING PAGE 2.0 — FULL-WIDTH EDITORIAL / STORY-DRIVEN */
+
+:host {
+  display: block;
+  width: 100%;
+  color: var(--ink);
+  background-color: var(--bg);
+}
+
+/* Fluid Typography for Wide Screen Editorial Composition */
+h1, h2, h3, h4 {
+  font-family: 'Space Grotesk', 'Inter Tight', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.035em;
+}
+
+/* Laser Scan Curtain Overlay (Landing -> Command Center Transition) */
+.transition-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: var(--retrace-obsidian);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: all;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s var(--ease-retrace), visibility 0.4s;
+}
+
+.transition-curtain.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.transition-laser {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--or);
+  box-shadow: 0 0 24px 4px var(--or);
+  animation: laserScan 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes laserScan {
+  0% {
+    top: 15%;
+    opacity: 0.3;
+  }
+  100% {
+    top: 85%;
+    opacity: 1;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .transition-laser {
+    animation: none;
+  }
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

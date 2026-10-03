@@ -1,0 +1,33 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.text-loop {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.text-loop-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 240px;
+}
+
+.text-loop-text {
+  user-select: none;
+  font-family: 'Space Grotesk', 'JetBrains Mono', monospace, sans-serif;
+}
+
+.text-loop-measure {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text-loop-text textPath {
+    animation: none !important;
+  }
+}

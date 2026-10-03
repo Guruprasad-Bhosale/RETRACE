@@ -1,0 +1,66 @@
+<div #rootRef class="text-loop w-full overflow-hidden select-none py-2" [attr.aria-label]="text">
+  <svg
+    class="text-loop-svg w-full h-auto block"
+    viewBox="0 0 1200 320"
+    preserveAspectRatio="xMidYMid meet"
+    role="img"
+  >
+    <!-- Background Path Ribbon -->
+    <path
+      #pathRef
+      [id]="pathId"
+      [attr.d]="pathData()"
+      fill="none"
+      [attr.stroke]="ribbon ? ribbonColor : 'none'"
+      [attr.stroke-width]="ribbon ? ribbonWidth : 0"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+
+    <!-- Hidden Measurement Text Node -->
+    <text
+      #measureRef
+      class="text-loop-measure invisible pointer-events-none"
+      [style.fontSize.px]="fontSize"
+      [style.fontWeight]="fontWeight"
+      [style.letterSpacing.px]="letterSpacing"
+      aria-hidden="true"
+    >
+      {{ unitText() }}
+    </text>
+
+    <!-- Head Looping Text Stream -->
+    <text
+      class="text-loop-text font-mono uppercase"
+      [style.fontSize.px]="fontSize"
+      [style.fontWeight]="fontWeight"
+      [style.letterSpacing.px]="letterSpacing"
+      [attr.fill]="color"
+      dominant-baseline="central"
+      aria-hidden="true"
+      [attr.textLength]="fitLength()"
+      lengthAdjust="spacing"
+    >
+      <textPath #headRef [attr.href]="'#' + pathId" startOffset="0">
+        {{ loopText() }}
+      </textPath>
+    </text>
+
+    <!-- Tail Looping Text Stream -->
+    <text
+      class="text-loop-text font-mono uppercase"
+      [style.fontSize.px]="fontSize"
+      [style.fontWeight]="fontWeight"
+      [style.letterSpacing.px]="letterSpacing"
+      [attr.fill]="color"
+      dominant-baseline="central"
+      aria-hidden="true"
+      [attr.textLength]="fitLength()"
+      lengthAdjust="spacing"
+    >
+      <textPath #tailRef [attr.href]="'#' + pathId" startOffset="0">
+        {{ loopText() }}
+      </textPath>
+    </text>
+  </svg>
+</div>

@@ -1,0 +1,148 @@
+# ==============================================================================
+# RETRACE Local Production-like Docker Compose Topology
+# ==============================================================================
+version: '3.8'
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: retrace-prod-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: retrace_admin
+      POSTGRES_PASSWORD: prod_secure_password_98234
+      POSTGRES_DB: retrace_prod
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_prod_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U retrace_admin -d retrace_prod"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7.4-alpine
+    container_name: retrace-prod-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_prod_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  minio:
+    image: minio/minio:latest
+    container_name: retrace-prod-minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: retrace_minio_admin
+      MINIO_ROOT_PASSWORD: retrace_minio_secret_key_8923
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_prod_data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  minio-init:
+    image: minio/mc:latest
+    container_name: retrace-prod-minio-init
+    depends_on:
+      minio:
+        condition: service_healthy
+    entrypoint: >
+      /bin/sh -c "
+      mc alias set myminio http://minio:9000 retrace_minio_admin retrace_minio_secret_key_8923;
+      mc mb --ignore-existing myminio/retrace-artifacts;
+      exit 0;
+      "
+
+  api:
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.api
+    container_name: retrace-prod-api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      ENVIRONMENT: production
+      DEBUG: "false"
+      LOG_LEVEL: INFO
+      SECRET_KEY: "prod-cluster-secret-key-32bytes-long-random!"
+      DATABASE_URL: postgresql+asyncpg://retrace_admin:prod_secure_password_98234@postgres:5432/retrace_prod
+      DATABASE_SYNC_URL: postgresql://retrace_admin:prod_secure_password_98234@postgres:5432/retrace_prod
+      REDIS_URL: redis://redis:6379/0
+      STORAGE_BACKEND: s3
+      STORAGE_S3_ENDPOINT_URL: http://minio:9000
+      STORAGE_S3_BUCKET: retrace-artifacts
+      STORAGE_S3_ACCESS_KEY: retrace_minio_admin
+      STORAGE_S3_SECRET_KEY: retrace_minio_secret_key_8923
+      STORAGE_S3_REGION: us-east-1
+      STORAGE_S3_USE_SSL: "false"
+      CORS_ORIGINS: '["http://localhost:4200","http://localhost:80"]'
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio-init:
+        condition: service_completed_successfully
+
+  worker:
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.worker
+    container_name: retrace-prod-worker
+    restart: unless-stopped
+    environment:
+      ENVIRONMENT: production
+      DEBUG: "false"
+      LOG_LEVEL: INFO
+      DATABASE_URL: postgresql+asyncpg://retrace_admin:prod_secure_password_98234@postgres:5432/retrace_prod
+      DATABASE_SYNC_URL: postgresql://retrace_admin:prod_secure_password_98234@postgres:5432/retrace_prod
+      REDIS_URL: redis://redis:6379/0
+      STORAGE_BACKEND: s3
+      STORAGE_S3_ENDPOINT_URL: http://minio:9000
+      STORAGE_S3_BUCKET: retrace-artifacts
+      STORAGE_S3_ACCESS_KEY: retrace_minio_admin
+      STORAGE_S3_SECRET_KEY: retrace_minio_secret_key_8923
+      STORAGE_S3_REGION: us-east-1
+      STORAGE_S3_USE_SSL: "false"
+      WORKER_CONCURRENCY: 4
+      WORKER_BROWSER_SANDBOX: "true"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio-init:
+        condition: service_completed_successfully
+
+  frontend:
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.frontend
+    container_name: retrace-prod-frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+
+volumes:
+  postgres_prod_data:
+  redis_prod_data:
+  minio_prod_data:

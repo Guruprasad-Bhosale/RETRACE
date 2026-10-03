@@ -1,0 +1,12 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}

@@ -1,0 +1,78 @@
+<span
+  #rootRef
+  class="stroke-text"
+  [class.stroke-text--hover]="trigger() === 'hover'"
+  [ngClass]="className()"
+  [ngStyle]="hostStyle()"
+  role="img"
+  [attr.aria-label]="text()"
+>
+  <svg
+    class="stroke-text__svg"
+    [attr.viewBox]="viewBox()"
+    [attr.preserveAspectRatio]="preserveAspectRatio()"
+    aria-hidden="true"
+    xml:space="preserve"
+  >
+    @if (fillMode() === 'wipe' && box()) {
+      <defs>
+        <clipPath [id]="wipeId" clipPathUnits="userSpaceOnUse">
+          <rect
+            #wipeRectRef
+            [attr.x]="box()!.x"
+            [attr.y]="box()!.y"
+            width="0"
+            [attr.height]="box()!.height"
+          />
+        </clipPath>
+      </defs>
+    }
+
+    <text
+      #strokeTextRef
+      class="stroke-text__stroke"
+      x="0"
+      y="0"
+      fill="none"
+      [attr.stroke]="strokeColor()"
+      [attr.stroke-width]="strokeWidth()"
+      stroke-linejoin="round"
+      stroke-linecap="round"
+      [ngStyle]="fontStyle()"
+      xml:space="preserve"
+    >
+      @for (line of lines(); track $index; let lineIdx = $index) {
+        <tspan
+          x="0"
+          [attr.dy]="lineIdx === 0 ? '0' : (numLineHeight() + 'em')"
+        >
+          @for (char of lineChars(line); track $index) {
+            <tspan data-stroke-char>{{ char }}</tspan>
+          }
+        </tspan>
+      }
+    </text>
+
+    <text
+      class="stroke-text__fill"
+      x="0"
+      y="0"
+      [attr.fill]="fillColor()"
+      stroke="none"
+      [ngStyle]="fontStyle()"
+      [attr.clip-path]="fillMode() === 'wipe' && box() ? 'url(#' + wipeId + ')' : null"
+      xml:space="preserve"
+    >
+      @for (line of lines(); track $index; let lineIdx = $index) {
+        <tspan
+          x="0"
+          [attr.dy]="lineIdx === 0 ? '0' : (numLineHeight() + 'em')"
+        >
+          @for (char of lineChars(line); track $index) {
+            <tspan data-fill-char>{{ char }}</tspan>
+          }
+        </tspan>
+      }
+    </text>
+  </svg>
+</span>

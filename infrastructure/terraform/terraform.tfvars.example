@@ -1,0 +1,27 @@
+# ==============================================================================
+# RETRACE Terraform Variables Example
+# ==============================================================================
+environment        = "production"
+aws_region         = "us-east-1"
+vpc_cidr           = "10.0.0.0/16"
+availability_zones = ["us-east-1a", "us-east-1b"]
+
+api_cpu            = 1024
+api_memory         = 2048
+api_desired_count  = 2
+
+worker_cpu         = 2048
+worker_memory      = 4096
+worker_desired_count = 2
+
+frontend_cpu       = 512
+frontend_memory    = 1024
+frontend_desired_count = 2
+
+db_instance_class  = "db.t4g.medium"
+db_allocated_storage = 50
+db_name            = "retrace_prod"
+db_username        = "retrace_admin"
+
+redis_node_type    = "cache.t4g.small"
+redis_num_cache_nodes = 2

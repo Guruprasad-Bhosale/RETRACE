@@ -1,0 +1,65 @@
+[
+  {
+    "duration_ms": 11.747000011382625,
+    "end_time": 175415.6196117,
+    "failure_reason": null,
+    "method": "POST",
+    "request_body": null,
+    "request_headers": {
+      "accept-language": "en-US",
+      "content-type": "application/json",
+      "referer": "http://127.0.0.1:53771/",
+      "sec-ch-ua": "\"Not=A?Brand\";v=\"99\", \"HeadlessChrome\";v=\"151\", \"Chromium\";v=\"151\"",
+      "sec-ch-ua-mobile": "?0",
+      "sec-ch-ua-platform": "\"Windows\"",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36"
+    },
+    "request_id": "2834171185968",
+    "resource_type": "fetch",
+    "response_body": null,
+    "response_headers": {
+      "access-control-allow-credentials": "true",
+      "access-control-allow-origin": "http://127.0.0.1:53771",
+      "content-length": "223",
+      "content-type": "application/json",
+      "date": "Sat, 03 Oct 2026 08:30:29 GMT",
+      "server": "uvicorn",
+      "vary": "Origin"
+    },
+    "start_time": 175415.6078647,
+    "status_code": 200,
+    "status_text": "OK",
+    "step_index": 7,
+    "url": "http://127.0.0.1:53771/api/cart"
+  },
+  {
+    "duration_ms": 0.44410000555217266,
+    "end_time": 175415.6203898,
+    "failure_reason": null,
+    "method": "GET",
+    "request_body": null,
+    "request_headers": {
+      "accept-language": "en-US",
+      "content-type": "application/json",
+      "referer": "http://127.0.0.1:53771/",
+      "sec-ch-ua": "\"Not=A?Brand\";v=\"99\", \"HeadlessChrome\";v=\"151\", \"Chromium\";v=\"151\"",
+      "sec-ch-ua-mobile": "?0",
+      "sec-ch-ua-platform": "\"Windows\"",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36"
+    },
+    "request_id": "2834171189568",
+    "resource_type": "fetch",
+    "response_body": null,
+    "response_headers": {
+      "content-length": "223",
+      "content-type": "application/json",
+      "date": "Sat, 03 Oct 2026 08:30:29 GMT",
+      "server": "uvicorn"
+    },
+    "start_time": 175415.6199457,
+    "status_code": 200,
+    "status_text": "OK",
+    "step_index": 7,
+    "url": "http://127.0.0.1:53771/api/cart"
+  }
+]

@@ -1,0 +1,97 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": { "h": 8, "w": 6, "x": 0, "y": 0 },
+      "id": 1,
+      "title": "Stream Backlog Depth",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "retrace_queue_depth",
+          "legendFormat": "{{stream_key}} backlog",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 8, "w": 6, "x": 6, "y": 0 },
+      "id": 2,
+      "title": "Active In-Flight Processing",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "retrace_queue_processing",
+          "legendFormat": "{{consumer_group}} active",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 8, "w": 6, "x": 12, "y": 0 },
+      "id": 3,
+      "title": "Worker Job Failures",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum(rate(retrace_worker_jobs_failed_total[5m])) by (error_type)",
+          "legendFormat": "{{error_type}}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 8, "w": 6, "x": 18, "y": 0 },
+      "id": 4,
+      "title": "Queue Delivery Failures",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum(rate(retrace_queue_failures_total[5m]))",
+          "legendFormat": "Failures/s",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 8 },
+      "id": 5,
+      "title": "Worker Job Duration (p50, p90, p99)",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.50, sum(rate(retrace_worker_job_duration_seconds_bucket[5m])) by (le, job_type))",
+          "legendFormat": "{{job_type}} p50",
+          "refId": "A"
+        },
+        {
+          "expr": "histogram_quantile(0.90, sum(rate(retrace_worker_job_duration_seconds_bucket[5m])) by (le, job_type))",
+          "legendFormat": "{{job_type}} p90",
+          "refId": "B"
+        },
+        {
+          "expr": "histogram_quantile(0.99, sum(rate(retrace_worker_job_duration_seconds_bucket[5m])) by (le, job_type))",
+          "legendFormat": "{{job_type}} p99",
+          "refId": "C"
+        }
+      ]
+    }
+  ],
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": ["retrace", "worker", "queue"],
+  "time": { "from": "now-6h", "to": "now" },
+  "title": "RETRACE — Worker Queue & Async Execution",
+  "uid": "retrace-worker-queue"
+}

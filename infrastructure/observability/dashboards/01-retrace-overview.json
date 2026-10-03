@@ -1,0 +1,123 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": { "h": 8, "w": 6, "x": 0, "y": 0 },
+      "id": 1,
+      "title": "API Request Rate (req/s)",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum(rate(retrace_http_requests_total[5m])) by (method, status)",
+          "legendFormat": "{{method}} - {{status}}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 8, "w": 6, "x": 6, "y": 0 },
+      "id": 2,
+      "title": "API Error Rate",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum(rate(retrace_http_errors_total[5m])) by (route, error_type)",
+          "legendFormat": "{{route}} - {{error_type}}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 8, "w": 6, "x": 12, "y": 0 },
+      "id": 3,
+      "title": "API Latency (p50 & p95)",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.50, sum(rate(retrace_http_request_duration_seconds_bucket[5m])) by (le))",
+          "legendFormat": "p50 Latency",
+          "refId": "A"
+        },
+        {
+          "expr": "histogram_quantile(0.95, sum(rate(retrace_http_request_duration_seconds_bucket[5m])) by (le))",
+          "legendFormat": "p95 Latency",
+          "refId": "B"
+        }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 8, "w": 6, "x": 18, "y": 0 },
+      "id": 4,
+      "title": "Redis Queue Depth",
+      "type": "gauge",
+      "targets": [
+        {
+          "expr": "sum(retrace_queue_depth)",
+          "legendFormat": "Queue Depth",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
+      "id": 5,
+      "title": "Analyses Throughput (Started vs Completed vs Failed)",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum(rate(retrace_analyses_started_total[5m]))",
+          "legendFormat": "Started",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(rate(retrace_analyses_completed_total[5m]))",
+          "legendFormat": "Completed",
+          "refId": "B"
+        },
+        {
+          "expr": "sum(rate(retrace_analyses_failed_total[5m]))",
+          "legendFormat": "Failed",
+          "refId": "C"
+        }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 },
+      "id": 6,
+      "title": "Worker Jobs Throughput",
+      "type": "timeseries",
+      "targets": [
+        {
+          "expr": "sum(rate(retrace_worker_jobs_claimed_total[5m]))",
+          "legendFormat": "Claimed",
+          "refId": "A"
+        },
+        {
+          "expr": "sum(rate(retrace_worker_jobs_completed_total[5m]))",
+          "legendFormat": "Completed",
+          "refId": "B"
+        }
+      ]
+    }
+  ],
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": ["retrace", "production", "overview"],
+  "time": { "from": "now-6h", "to": "now" },
+  "title": "RETRACE — Overview & Platform Health",
+  "uid": "retrace-overview"
+}

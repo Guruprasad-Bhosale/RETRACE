@@ -1,0 +1,42 @@
+# Git and CI
+.git/
+.github/
+.gitignore
+
+# Python virtual environment and caches
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Environment files and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Node and Frontend build caches
+node_modules/
+.angular/
+dist/
+.npm/
+
+# Local data & artifacts
+storage_data/
+artifacts/
+*.log
+
+# Benchmark Oracle & Ground Truth (Strict Container Isolation)
+benchmarks/
+lab/ground_truth/
+lab/applications/
+
+# Documentation and scratch
+docs/
+*.md

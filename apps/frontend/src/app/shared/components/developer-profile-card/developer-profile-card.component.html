@@ -1,0 +1,105 @@
+<div #cardWrapper class="relative w-full max-w-[460px] mx-auto select-none">
+  
+  <!-- EFFECT 01: BEHIND GLOW (Soft Orange Light Radiating Behind Card) -->
+  <div
+    class="pointer-events-none absolute -inset-4 sm:-inset-6 rounded-[32px] transition-opacity duration-500 z-0 blur-2xl"
+    [style.opacity]="glowOpacity() * 0.75"
+    [style.background]="'radial-gradient(circle 280px at ' + glowX() + '% ' + glowY() + '%, rgba(255, 90, 31, 0.22), transparent 75%)'"
+  ></div>
+
+  <!-- MAIN CARD CONTAINER -->
+  <div
+    class="relative z-10 rounded-[24px] bg-(--surface) border border-(--grid) p-5 sm:p-6 overflow-hidden transition-all duration-300 hover:border-(--or)/40 shadow-xl"
+  >
+    
+    <!-- EFFECT 02: FORENSIC ICON / PARTICLE PATTERN -->
+    <div
+      class="pointer-events-none absolute inset-0 z-0 opacity-15 transition-opacity duration-300"
+      [class.opacity-30]="isHovered()"
+      [style.transform]="'translate(' + patternShiftX() + 'px, ' + patternShiftY() + 'px)'"
+    >
+      <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="forensic-particles" width="36" height="36" patternUnits="userSpaceOnUse">
+            <!-- Micro crosshair -->
+            <path d="M18 15v6M15 18h6" stroke="var(--or)" stroke-width="0.75" opacity="0.6" />
+            <!-- Micro dot -->
+            <circle cx="6" cy="6" r="0.8" fill="var(--ink)" opacity="0.4" />
+            <circle cx="30" cy="30" r="0.8" fill="var(--ink)" opacity="0.4" />
+            <!-- Micro node coordinate -->
+            <rect x="28" y="5" width="2" height="2" fill="var(--or)" opacity="0.5" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#forensic-particles)" />
+      </svg>
+    </div>
+
+    <!-- PROFILE IMAGE (Generous Breathing Room, 60–70% of Card) -->
+    <div class="relative z-10 overflow-hidden rounded-[20px] aspect-[4/3] sm:aspect-[1/1] bg-(--elevated) border border-(--grid) shadow-inner">
+      <img
+        [src]="avatarUrl"
+        [alt]="name"
+        (error)="onImageError()"
+        class="w-full h-full object-cover grayscale-[10%] hover:grayscale-0 transition-all duration-500 hover:scale-[1.02]"
+        [class.hidden]="imageError()"
+        loading="lazy"
+      />
+
+      <!-- Fallback if asset is missing -->
+      @if (imageError()) {
+        <div class="w-full h-full flex flex-col items-center justify-center font-mono p-6 text-center">
+          <span class="text-4xl font-black text-(--or)">GB</span>
+          <span class="text-xs text-(--muted) mt-2">{{ name }}</span>
+        </div>
+      }
+    </div>
+
+    <!-- IDENTITY INFORMATION (Clean Vertical Stacking Hierarchy) -->
+    <div class="relative z-10 pt-5 space-y-2">
+      <!-- Row 1: Full-Width Name -->
+      <div>
+        <h3 class="text-2xl sm:text-3xl font-extrabold text-(--ink) tracking-tight leading-tight">
+          {{ name }}
+        </h3>
+      </div>
+
+      <!-- Row 2: Full-Width Identity Line (Natural Wrap Allowed) -->
+      <div>
+        <span class="text-xs font-mono text-(--or) font-bold tracking-wider uppercase leading-relaxed block">
+          {{ title }}
+        </span>
+      </div>
+
+      <!-- Row 3: Full-Width Handle (Guaranteed Non-Breaking) -->
+      <div>
+        <span class="text-xs font-mono text-(--muted) whitespace-nowrap block">
+          @{{ handle }}
+        </span>
+      </div>
+
+      <!-- Row 4: Full-Width Social Channels Row -->
+      <div class="flex items-center gap-6 pt-2 font-mono text-xs">
+        <a
+          [href]="githubUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-(--ink) hover:text-(--or) transition-colors no-underline flex items-center gap-1.5 font-bold cursor-pointer"
+        >
+          <span>GITHUB</span>
+          <span class="text-(--or)">&nearr;</span>
+        </a>
+
+        <a
+          [href]="linkedinUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-(--ink) hover:text-(--or) transition-colors no-underline flex items-center gap-1.5 font-bold cursor-pointer"
+        >
+          <span>LINKEDIN</span>
+          <span class="text-(--or)">&nearr;</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
